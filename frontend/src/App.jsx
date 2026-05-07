@@ -6,7 +6,7 @@ import Seen from './pages/Seen.jsx'
 import {Routes, Route} from "react-router-dom"
 import { MovieProvider } from './contexts/SeenContext.jsx'
 import { ToWatchProvider } from './contexts/ToWatchContext.jsx'
-import './App.css'
+import './css/App.css'
 import ToWatch from './pages/ToWatch.jsx'
 
 function App() {
