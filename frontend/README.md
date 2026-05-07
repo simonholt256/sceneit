@@ -1,23 +1,61 @@
 
 
+# Scene it
+
+## Description
+A React web application that allows users to search for movies using an external API and organize them into personal lists such as "Seen" and "Want to Watch". The app demonstrates component-based architecture, state management with hooks, and API integration.
+
+## Features
+- Search for movies in real-time
+- Add movies to your personal lists (to see and seen)
+- Fast and responsive interface
+
+## Tech Stack
+- Frontend: React(vite), JavaScript (ES6+), CSS
+- State Management: React Hooks (useState, useEffect)
+- API: Movie data provided by TMDb
 
 
+## How It Works
+Search for a movie using the search bar
+Browse the results returned from the API
+Add movies to either:
+"Seen" list
+"Want to Watch" list
+Manage your lists directly from the app
 
+## Installation
 
+Clone the repository:
+```
+git clone https://github.com/simonholt256/sceneit.git
+```
+Navigate into the project folder (frontend of app):
+```
+cd frontend
+```
+Install dependencies:
+```
+npm install
+```
+Start the development server:
+```
+npm run dev
+```
+Open http://localhost:5173 in your browser
 
-# React + Vite
+## Usage
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Simply open the app and start searching for movies. No account required.
 
-Currently, two official plugins are available:
+## Future Improvements
+- Add ratings and reviews
+- Add user authentication
+- Persist data using a backend or database
+- Improve UI/UX design
+- Add movie recommendations
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+## Demo
 
-## React Compiler
+Add screenshots or a live demo link here.
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
-
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
