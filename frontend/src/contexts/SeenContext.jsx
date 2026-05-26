@@ -5,13 +5,10 @@ const MovieContext = createContext()
 export const useMovieContext = () => useContext(MovieContext)
 
 export const MovieProvider = ({children}) => {
-    const [seen, setSeen] = useState([])
-
-    useEffect(() => {
+    const [seen, setSeen] = useState(() => {
         const storedSeen = localStorage.getItem("seen")
-
-        if (storedSeen) setSeen(JSON.parse(storedSeen))
-    }, [])
+        return storedSeen ? JSON.parse(storedSeen) : []
+    })
 
     useEffect(() => {
         localStorage.setItem('seen', JSON.stringify(seen))
@@ -22,15 +19,34 @@ export const MovieProvider = ({children}) => {
     }, [seen]);
 
 
-    const addToSeen = (movie) => {
-        setSeen(prev => [
-            ...prev, 
-            {
-                ...movie,
-                userRating: 8
-            }
-        ]);
-    };
+    const addToSeen = (movie, rating) => {
+
+      setSeen(prev => {
+
+          const alreadySeen = prev.some(
+              m => m.id === movie.id
+          )
+
+          if (alreadySeen) {
+
+              return prev.map(m =>
+                  m.id === movie.id
+                      ? { ...m, userRating: rating }
+                      : m
+              )
+
+          } else {
+
+              return [
+                  ...prev,
+                  {
+                      ...movie,
+                      userRating: rating
+                  }
+              ]
+          }
+      })
+  }
 
     const removeFromSeen = (movieId) => {
         setSeen(prev => prev.filter(movie => movie.id !== movieId))

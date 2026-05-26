@@ -11,7 +11,14 @@ function Seen() {
                 <h2>Watched List</h2>
                 <div className="movie-grid">
                     {seen.map((movie) => (
-                        <FilmCard movie={movie} key={movie.id}/>
+                      <div key={movie.id}>
+                        <FilmCard movie={movie} />
+                        {movie.userRating === 0 ? 
+                        ("No rating") : ( <div>Your rating: {movie.userRating}/10</div>)
+                        }
+                        
+                      </div>
+                        
                     ))}
                 </div>
             </div>

@@ -5,13 +5,10 @@ const ToWatchContext = createContext()
 export const useToWatchContext = () => useContext(ToWatchContext)
 
 export const ToWatchProvider = ({children}) => {
-    const [toWatch, setToWatch] = useState([])
-
-    useEffect(() => {
+    const [toWatch, setToWatch] = useState(() => {
         const storedToWatch = localStorage.getItem("to-watch")
-
-        if (storedToWatch) setToWatch(JSON.parse(storedToWatch))
-    }, [])
+        return storedToWatch ? JSON.parse(storedToWatch) : []
+    })
 
     useEffect(() => {
         localStorage.setItem('to-watch', JSON.stringify(toWatch))
