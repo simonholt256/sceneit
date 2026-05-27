@@ -16,3 +16,27 @@ export const searchMovies = async (query) => {
     const data = await response.json()
     return data.results
 };
+
+export const getMovieCredits = async (movieId) => {
+    const response = await fetch(
+        `${BASE_URL}/movie/${movieId}/credits?api_key=${API_KEY}`
+    )
+
+    const data = await response.json()
+
+    return {
+        cast: data.cast,
+        director:
+            data.crew.find(person => person.job === "Director")?.name
+    }
+}
+
+export const getRecommendedMovies = async (movieId) => {
+    const response = await fetch(
+        `${BASE_URL}/movie/${movieId}/recommendations?api_key=${API_KEY}`
+    )
+
+    const data = await response.json()
+
+    return data.results
+}
