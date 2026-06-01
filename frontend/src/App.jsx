@@ -1,35 +1,29 @@
+import Header from './components/Header/Header.jsx';
+import DashBoard from './pages/DashBoard.jsx';
+import Search from './pages/Search.jsx';
+import Seen from './pages/Seen.jsx';
+import ToWatch from './pages/ToWatch.jsx';
 
-import Header from './components/Header.jsx'
-import Home from './pages/Home.jsx'
-import Search from './pages/Search.jsx'
-import Seen from './pages/Seen.jsx'
-import {Routes, Route} from "react-router-dom"
-import { MovieProvider } from './contexts/SeenContext.jsx'
-import { ToWatchProvider } from './contexts/ToWatchContext.jsx'
-import './css/App.css'
-import ToWatch from './pages/ToWatch.jsx'
+import { Routes, Route } from "react-router-dom";
+
+import { MovieProvider } from './contexts/MovieContext.jsx';
+import { ModalProvider } from './contexts/ModalContext.jsx';
+
+import InfoModal from "./components/Modal/InfoModal";
+import RatingModal from "./components/Modal/RatingModal";
+
+import AppContent from "./AppContent.jsx"; 
+
+import './css/App.css';
 
 function App() {
-
-  return(
+  return (
     <MovieProvider>
-      <ToWatchProvider>
-        <Header/>
-        <main className='main-content'>
-          <Routes>
-            <Route path="/" element={<Home/>}/>
-            <Route path="/Search" element={<Search/>}/>
-            <Route path="/Seen" element={<Seen/>}/>
-            <Route path="/ToWatch" element={<ToWatch/>}/>
-          </Routes>
-        </main>
-      </ToWatchProvider>
-      
+      <ModalProvider>
+        <AppContent />
+      </ModalProvider>
     </MovieProvider>
-    
-    
   );
 }
 
-
-export default App
+export default App;

@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom"
 
 function NoFilms({state}) {
 
@@ -7,7 +8,8 @@ function NoFilms({state}) {
 
     return <div className="seen-empty">
         <h2>No {state} movies</h2>
-        <p>find the films you've {state}</p><button className="link-to-search" onClick={linkToSearchPage}>Here</button>
+        <p>find the films you've {state}</p>
+        <Link to="/Search" className="search-link">Search</Link>
     </div>
 }
 

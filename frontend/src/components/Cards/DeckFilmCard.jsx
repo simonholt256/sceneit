@@ -1,19 +1,78 @@
 import { useState } from "react"
-import { useMovieContext} from "../contexts/SeenContext"
-import { useToWatchContext } from "../contexts/ToWatchContext"
-import { getMovieCredits, getRecommendedMovies } from "../services/api"
+// import { useMovieContext } from "../../contexts/MovieContext";
+import { getMovieCredits, getRecommendedMovies } from "../../services/api"
 import { createPortal } from "react-dom"
 
-import ToWatchIcon from "../assets/icons/ticket.png"
-import SeenIcon from "../assets/icons/eye.png"
-import RateIcon from "../assets/icons/rate.png"
+import ToWatchIcon from "../../assets/icons/ticket.png"
+import SeenIcon from "../../assets/icons/eye.png"
+import RateIcon from "../../assets/icons/rate.png"
 
-import NoPoster from "../assets/default/noposter.png"
-
-
+import NoPoster from "../../assets/default/noposter.png"
 
 
-function FilmCard({movie}){
+
+
+function DeckFilmCard(){
+
+  // const {seen} = useMovieContext();
+  // const {watch} = useMovieContext();
+
+  const exampleMovies = [
+    {
+      id: 1,
+      title: "Inception",
+      release_date: "2010-07-16",
+      poster_path: null,
+      genre_ids: [28, 878, 12],
+      overview:
+        "A skilled thief enters dreams to steal secrets and is offered a chance at redemption.",
+      userRating: 9,
+    },
+    {
+      id: 2,
+      title: "Interstellar",
+      release_date: "2014-11-07",
+      poster_path: "/gEU2QniE6E77NI6lCU6MxlNBvIx.jpg",
+      genre_ids: [12, 18, 878],
+      overview:
+        "A group of astronauts travel through a wormhole in search of a new home for humanity.",
+      userRating: 10,
+    },
+    {
+      id: 3,
+      title: "The Dark Knight",
+      release_date: "2008-07-18",
+      poster_path: "/qJ2tW6WMUDux911r6m7haRef0WH.jpg",
+      genre_ids: [18, 28, 80],
+      overview:
+        "Batman faces the Joker, a criminal mastermind spreading chaos across Gotham.",
+      userRating: 8,
+    },
+    {
+      id: 4,
+      title: "Blade Runner 2049",
+      release_date: "2017-10-06",
+      poster_path: "/gajva2L0rPYkEWjzgFlBXCAVBE5.jpg",
+      genre_ids: [878, 18],
+      overview:
+        "A young blade runner uncovers a secret that could change society forever.",
+      userRating: 0,
+    },
+    {
+      id: 5,
+      title: "Spirited Away",
+      release_date: "2001-07-20",
+      poster_path: "/39wmItIWsg5sZMyRUHLkWBcuVCM.jpg",
+      genre_ids: [16, 14, 10751],
+      overview:
+        "A young girl enters a mysterious spirit world and must find her way home.",
+      userRating: 0,
+    },
+  ];
+
+  const seen = exampleMovies;
+
+  const movie = exampleMovies[0];
 
     const [showInfoModal, setShowInfoModal] = useState(false)
     const [showRateModal, setShowRateModal] = useState(false)
@@ -22,8 +81,10 @@ function FilmCard({movie}){
     const [director, setDirector] = useState("")
     const [recommendations, setRecommendations] = useState([])
 
-    const {isSeen, addToSeen, removeFromSeen} = useMovieContext()
-    const seen = isSeen(movie.id)
+    // const {isSeen, addToSeen, removeFromSeen} = useMovieContext()
+    // const seen = isSeen(movie.id)
+
+    
 
     const genreMap = {
       28: "Action",
@@ -60,8 +121,8 @@ function FilmCard({movie}){
         
     }
 
-    const {isToWatch, addToToWatch, removeFromToWatch} = useToWatchContext()
-    const toWatch = isToWatch(movie.id)
+    // const {isToWatch, addToToWatch, removeFromToWatch} = useToWatchContext()
+    // const toWatch = isToWatch(movie.id)
 
     function toWatchFilm(e){
         e.preventDefault()
@@ -101,33 +162,32 @@ function FilmCard({movie}){
 
 
     return(
-        <div className="film-card">
+        <div className="deck-film-card">
             <img src={
                   movie.poster_path
                     ? `https://image.tmdb.org/t/p/w500${movie.poster_path}`
                     : NoPoster
                 }
-              alt={movie.title} className="film-img" onClick={openInfoModal}>
+              alt={movie.title} className="deck-film-img" onClick={openInfoModal}>
             </img>
             <div className="title-box">
               <div className="title-font" onClick={openInfoModal}>{movie.title} </div>
               <div>{movie.release_date?.split("-")[0]}</div>
             </div>
             
-            <div className="button-box">
-                <button className={`to-watch-button card-button ${toWatch ? "on-to-watch-list" : "" }`} onClick={toWatchFilm}>
-                  <img className="card-icon" src={ToWatchIcon}></img>
+            {/* <div className="button-box">
+              <button className={`to-watch-button card-button ${toWatch ? "on-to-watch-list" : "" }`} onClick={toWatchFilm}>
+                <img className="card-icon" src={ToWatchIcon}></img>
+              </button>
+              <div className="rate-box">
+                <button className={`seen-button card-button ${seen ? "have-seen" : "" }`} onClick={seenFilm}>
+                  <img className="card-icon" src={SeenIcon}></img>
                 </button>
-                <div className="rate-box">
-                  <button className={`seen-button card-button ${seen ? "have-seen" : "" }`} onClick={seenFilm}>
-                    <img className="card-icon" src={SeenIcon}></img>
-                  </button>
-                  <button className={`rate-button card-button ${seen ? "have-seen" : "" }`} onClick={openRatingModal}>
-                    <img className="card-icon" src={RateIcon}></img>
-                  </button>
-                </div>
-                
-            </div>
+                <button className={`rate-button card-button ${seen ? "have-seen" : "" }`} onClick={openRatingModal}>
+                  <img className="card-icon" src={RateIcon}></img>
+                </button>
+              </div>
+            </div> */}
             {showInfoModal &&
               createPortal(
                 <div className="modal-overlay">
@@ -247,4 +307,4 @@ function FilmCard({movie}){
     )
 }
 
-export default FilmCard
+export default DeckFilmCard

@@ -1,5 +1,5 @@
-import SearchBox from "../components/SearchBox"
-import Header from "../components/Header"
+import SearchBox from "../components/Search/SearchBox"
+import Header from "../components/Header/Header"
 
 function Search() {
     

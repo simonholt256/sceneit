@@ -1,0 +1,69 @@
+import { createPortal } from "react-dom";
+import { useModalContext } from "../../contexts/ModalContext";
+import { useMovieContext } from "../../contexts/MovieContext";
+
+function RatingModal() {
+
+    const {
+        selectedMovie,
+        isRatingOpen,
+        closeRatingModal,
+        rating,
+        setRating,
+        review,
+        setReview
+    } = useModalContext();
+
+    const { addToSeen } = useMovieContext();
+
+    if (!isRatingOpen || !selectedMovie) return null;
+
+    function handleSave() {
+        addToSeen(selectedMovie, rating, review);
+        closeRatingModal();
+    }
+
+    return createPortal(
+        <div className="modal-overlay">
+            <div className="rating-modal">
+
+                <h2>Rate {selectedMovie.title}</h2>
+
+                <select
+                    value={rating}
+                    onChange={(e) => setRating(Number(e.target.value))}
+                >
+                    <option value="0">Select rating</option>
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                    <option value="6">6</option>
+                    <option value="7">7</option>
+                    <option value="8">8</option>
+                    <option value="9">9</option>
+                    <option value="10">10</option>
+                </select>
+
+                <textarea
+                    value={review}
+                    onChange={(e) => setReview(e.target.value)}
+                    placeholder="Write your review..."
+                />
+
+                <button onClick={handleSave}>
+                    Save Rating
+                </button>
+
+                <button onClick={closeRatingModal}>
+                    Close
+                </button>
+
+            </div>
+        </div>,
+        document.body
+    );
+}
+
+export default RatingModal;
