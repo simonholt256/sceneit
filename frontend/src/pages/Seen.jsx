@@ -2,9 +2,11 @@ import NoFilms from "../components/PlaceHolders/NoFilms"
 import { useMovieContext } from "../contexts/MovieContext"
 import FilmCard from "../components/Cards/FilmCard"
 
+import DeckBox from "../components/Boxes/DeckBox"
+
 import SeenNames from "../components/Lists/SeenNames" 
 
-import DeckFilmCard from "../components/Cards/DeckFilmCard"
+
 
 function Seen() {
     const {seen} = useMovieContext();
@@ -24,22 +26,17 @@ function Seen() {
               <div className="seen__display-container">
                 
                 
-                <div className="deck-container">
-                  <DeckFilmCard/>
-                  <DeckFilmCard/>
-                  <DeckFilmCard/>
-                  <DeckFilmCard/>
-                  <DeckFilmCard/>
-                </div>
+                <DeckBox/>
                 <div> Review box </div>
                 <div className="deck-review-container">
                   <div className="review-text-box">Review</div>
                 </div>
-                <h3>Rated</h3>
+                <h3 className="split-by-title">Rated</h3>
                 <div className="seen-page-boxes">
                     {ratedMovies.map(movie => (
                         <div className="review-card-box" key={movie.id}>
                             <FilmCard movie={movie} />
+                            <button>Your Review for {movie.id}</button>
                             <div>Your rating: {movie.userRating}/10</div>
                             {movie.review && (
                                 <div>Your review: {movie.review}</div>
@@ -48,7 +45,7 @@ function Seen() {
                     ))}
                 </div>
 
-                <h3>Unrated</h3>
+                <h3 className="split-by-title">Unrated</h3>
                 <div className="seen-page-boxes">
                     {unratedMovies.map(movie => (
                         <div key={movie.id}>

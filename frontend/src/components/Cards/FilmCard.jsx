@@ -49,24 +49,29 @@ function FilmCard({ movie }) {
 
     return (
         <div className="film-card">
-
-            <img
-                src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
-                alt={movie.title}
-                className="film-img"
-                onClick={() => openInfoModal(movie)}
-            />
+            <div className="film-img-box">
+              <img
+                  src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
+                  alt={movie.title}
+                  className="film-img"
+                  onClick={() => openInfoModal(movie)}
+              />
+              <div
+                  className="title-font"
+                  onClick={() => openInfoModal(movie)}
+              >
+                  {movie.title}
+                  <div>{movie.release_date?.split("-")[0]}</div>
+                  
+              </div>
+              
+            </div>
+            
 
             <div className="title-box">
-                <div
-                    className="title-font"
-                    onClick={() => openInfoModal(movie)}
-                >
-                    {movie.title}
-                </div>
-                <div>{movie.release_date?.split("-")[0]}</div>
+                
+                <div className="date-display">{movie.release_date?.split("-")[0]}</div>
             </div>
-
             <div className="button-box">
                 <div className="rate-box">
                   <button

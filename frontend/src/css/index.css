@@ -15,7 +15,7 @@ body {
   display: flex;
   min-width: 320px;
   min-height: 100vh;
-  background-image: linear-gradient(to bottom, rgb(0, 0, 0), #624863);
+  background-image: linear-gradient(to bottom, rgb(7, 7, 7) 400px, #554858);
 }
 
 h1 {
@@ -23,6 +23,10 @@ h1 {
   line-height: 1.1;
   margin: 20px 0;
   font-family: Georgia, 'Times New Roman', Times, serif;
+}
+
+h3 {
+  text-align: start;
 }
 
 button {
@@ -35,10 +39,8 @@ button {
   transition: border-color 0.25s;
 }
 button:hover {
-  border-color: #646cff;
+  border-color: #eeafff;
+  background-color: rgb(206, 249, 255);
 }
-button:focus,
-button:focus-visible {
-  outline: 4px auto -webkit-focus-ring-color;
-}
+
 

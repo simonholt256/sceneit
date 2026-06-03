@@ -79,7 +79,7 @@ function ToWatch() {
   });
 
   return (
-    <div>
+    <div >
       <h2>To Watch</h2>
 
       <div className="to-watch-layout">
@@ -92,9 +92,9 @@ function ToWatch() {
 
           {/* VIEW SWITCH */}
           <div className="to-watch__display-button-box">
-            <button onClick={() => setView("genre")}>Genre</button>
-            <button onClick={() => setView("priority")}>Priority</button>
-            <button onClick={() => setView("custom")}>Custom</button>
+            <button className="button" onClick={() => setView("genre")}>Genre</button>
+            <button className="button" onClick={() => setView("priority")}>Priority</button>
+            <button className="button" onClick={() => setView("custom")}>Custom</button>
           </div>
 
           <div className="to-watch__display-container">
@@ -107,7 +107,7 @@ function ToWatch() {
             {view === "genre" &&
               Object.entries(groupedByGenre).map(([genreId, movies]) => (
                 <div key={genreId}>
-                  <h3>{genreMap[genreId]}</h3>
+                  <h3 className="split-by-title">{genreMap[genreId]}</h3>
 
                   <div className="to-watch__movie-grid">
                     {movies.map(movie => (
@@ -122,7 +122,7 @@ function ToWatch() {
             {view === "priority" &&
               Object.entries(groupedByPriority).map(([priority, movies]) => (
                 <div key={priority}>
-                  <h3>{priority}</h3>
+                  <h3 className="split-by-title">{priority}</h3>
 
                   <div className="to-watch__movie-grid">
                     {movies.map(movie => (
@@ -137,7 +137,7 @@ function ToWatch() {
             {view === "custom" &&
               Object.entries(groupedByCustom).map(([tag, movies]) => (
                 <div key={tag}>
-                  <h3>{tag}</h3>
+                  <h3 className="split-by-title">{tag}</h3>
 
                   <div className="to-watch__movie-grid">
                     {movies.map(movie => (

@@ -13,7 +13,7 @@ function SeenNames() {
     if (seen) {
         return (
             <div>
-                <h2>Seen</h2>
+                <h2>SEEN LIST</h2>
                 <div className='seen'></div>
                 <div className="movie-grid">
                     {seen.map((movie) => (

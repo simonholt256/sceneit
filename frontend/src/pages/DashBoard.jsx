@@ -1,39 +1,39 @@
-import SearchBox from "../components/Search/SearchBox";
+import SearchBox from "../components/Boxes/SearchBox";
 
 import WatchNames from "../components/Lists/WatchNames";
 import SeenNames from "../components/Lists/SeenNames";
 
-import DeckFilmCard from "../components/Cards/DeckFilmCard";
+import DeckBox from "../components/Boxes/DeckBox";
+
+import RecommendationBox from "../components/Boxes/RecommendationBox";
 
 
 function DashBoard() {
     
 
     return (
+        <>
+          <h2>Scene it</h2>
+          <div className='dash-layout'>
+            <div className="dash-container">
+                <WatchNames/>
+            </div>
+            <div className="dash-container">
+                <SeenNames/>
+            </div>
+            <div className="dash-container">
+              <DeckBox/>
+              <div className="deck-review-container">
+                <div className="review-text-box">Review</div>
+              </div>
+              <div className="deck-recommendation-container">
+                <div>Recommended films from top films</div>
+                <RecommendationBox/>
+              </div>
+            </div>
+          </div>  
+        </>
         
-        <div className='dash-layout'>
-          <div className="dash-container">
-              <WatchNames/>
-          </div>
-          <div className="dash-container">
-              <SeenNames/>
-          </div>
-          <div className="dash-container">
-            <div className="deck-container">
-              <DeckFilmCard/>
-              <DeckFilmCard/>
-              <DeckFilmCard/>
-              <DeckFilmCard/>
-              <DeckFilmCard/>
-            </div>
-            <div className="deck-review-container">
-              <div className="review-text-box">Review</div>
-            </div>
-            <div className="deck-recommendation-container">
-              <div>Recommended films from top films</div>
-            </div>
-          </div>
-        </div>  
     );
 }
 

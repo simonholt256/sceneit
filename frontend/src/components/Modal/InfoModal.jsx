@@ -29,7 +29,10 @@ function InfoModal() {
         isToWatch,
         addToToWatch,
         removeFromToWatch,
-        getSeenMovie
+        getSeenMovie,
+        isInDeck,
+        addToDeck,
+        removeFromDeck,
     } = useMovieContext();
 
     const [cast, setCast] = useState([]);
@@ -39,6 +42,7 @@ function InfoModal() {
 
     const seen = selectedMovie ? isSeen(selectedMovie.id) : false;
     const toWatch = selectedMovie ? isToWatch(selectedMovie.id) : false;
+    const inDeck = selectedMovie ? isInDeck(selectedMovie.id) : false;
 
     useEffect(() => {
         if (!selectedMovie) return;
@@ -81,19 +85,29 @@ function InfoModal() {
     }
 
     function handleSeen() {
-        if (seen) {
-            removeFromSeen(selectedMovie.id);
-        } else {
-            addToSeen(selectedMovie, 0);
-        }
+      if (seen) {
+        removeFromSeen(selectedMovie.id);
+      } else {
+        addToSeen(selectedMovie, 0);
+      }
     }
 
     function handleToWatch() {
-        if (toWatch) {
-            removeFromToWatch(selectedMovie.id);
-        } else {
-            addToToWatch(selectedMovie);
-        }
+      if (toWatch) {
+        removeFromToWatch(selectedMovie.id);
+      } else {
+        addToToWatch(selectedMovie);
+      }
+    }
+
+    function handleDeck() {
+      if (!selectedMovie) return;
+
+      if (inDeck) {
+        removeFromDeck(selectedMovie.id);
+      } else {
+        addToDeck(selectedMovie);
+      }
     }
 
     return createPortal(
@@ -114,7 +128,7 @@ function InfoModal() {
 
                     <div className="info-modal-stats">
 
-                        <h2>{selectedMovie.title}</h2>
+                        <h2 className="info-modal__title">{selectedMovie.title}</h2>
 
                         <h3>
                             Release:{" "}
@@ -134,9 +148,9 @@ function InfoModal() {
 
                         <p>Director: {director}</p>
 
-                        <p>Overview: {selectedMovie.overview}</p>
+                        <p className="info-modal__overview">Overview: {selectedMovie.overview}</p>
 
-                        <div className="button-box">
+                        <div className="info-modal__button-box">
 
                             <div className="rate-box">
                               <button
@@ -152,6 +166,8 @@ function InfoModal() {
                               >
                                   <img className="card-icon" src={Priority} />
                               </button>
+
+                              
                             </div>
 
                             <div className="rate-box">
@@ -168,6 +184,15 @@ function InfoModal() {
                               >
                                   <img src={RateIcon} className="card-icon" />
                               </button>
+                              {seen && (
+                                <button
+                                  className={`card-button deck-button ${inDeck ? "in-deck" : ""}`}
+                                  onClick={handleDeck}
+                                >
+                                  Deck
+                                </button>
+                              )}
+                              
                             </div>
 
 

@@ -5,7 +5,7 @@ function Header(){
 
     return(
         <header>
-            <h1>Scene it</h1>
+            {/* <h1>Scene it</h1> */}
             <NavBar/>
             
         </header>

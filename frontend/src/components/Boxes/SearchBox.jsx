@@ -64,7 +64,7 @@ function SearchBox() {
             {loading ? (
                 <div className="loading">Loading...</div>
             ) : (
-                <div className="movie-grid">
+                <div className="search-movie-grid">
                     {movies.map((movie) => (
                         <FilmCard movie={movie} key={movie.id}/>
                     ))}

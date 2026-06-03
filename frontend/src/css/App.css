@@ -3,20 +3,20 @@
 :root {
   --bg: #272727;
   --bg-second: #f1fff785;
-  --bold-one: green;
-  --bold-two: #72a072;
-  --text: black;
-  --card: #f8ffea;
-  --card-hover: #fbffd4;
-  --bg-textbox: white;
-  --outer-border: #0000004f;
-  --inner-border: #000000e5;
-  --glow: #ccf3ff;
-  --glow-hover: #b0edff;
+  --bold-one: rgb(104, 237, 255);
+  --bold-two: #f5cbff;
+  --text: rgb(255, 255, 255);
+  --card: #2e2e2e;
+  --card-hover: #717b7e;
+  --bg-textbox: rgb(14, 14, 14);
+  --outer-border: #fffeab9f;
+  --inner-border: #fffd87e5;
+  --glow: #f8c0ff;
+  --glow-hover: #ffd6fd;
 
-  --font: system-ui, Avenir, Helvetica, Arial, sans-serif;
+  --font: "Anta", sans-serif;
 
-  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   line-height: 1.5;
   font-weight: 400;
   font-size: small;
@@ -29,7 +29,7 @@
   min-width: 1000px;
   max-width: 1200px;
   margin: 0 auto;
-  padding: 1rem 2rem;
+  padding: 0px 2rem;
   text-align: center;
 
 
@@ -45,6 +45,33 @@
 
 .button {
   margin: 8px;
+  background-color: rgb(59, 59, 59);
+  color: white;
+  padding: 4px 16px
+}
+
+/* Cards */
+
+.date-display {
+  font-family: var(--font);
+}
+
+
+
+.deck-film-card {
+  padding: 8px;
+  border: solid 1px grey;
+  border-radius: 16px;
+  margin: 4px;
+  /* height: 140px; */
+}
+
+.cardback {
+  width: 100%;
+}
+
+.deck-card-img {
+  width: 100%;
 }
 
 /* Dash */
@@ -70,13 +97,7 @@
   grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
 }
 
-.deck-film-card {
-  padding: 8px;
-  border: solid 1px grey;
-  border-radius: 16px;
-  margin: 4px;
-  height: 200px;
-}
+
 
 .deck-film-img {
   width: 100%;
@@ -100,20 +121,27 @@
   height: 100%;
 }
 
+.split-by-title {
+  /* border-top: solid 1px var(--bold-two); */
+  background-image: linear-gradient(rgba(240, 180, 255, 0.26), rgba(0, 0, 0, 0));
+  padding-left: 16px;
+}
+
 .to-watch__selected-title {
   text-align: start;
   padding: 4px 16px;
   line-height: 32px;
   font-size: 2rem;
+  background-color: #3f3f3f46;
 }
 
 .deck-recommendation-container {
   width: 98%;
-  padding: 8px;
+  padding: 0px;
   border: solid 1px grey;
   border-radius: 16px;
   margin: 4px;
-  height: 140px;
+  /* height: 140px; */
 }
 
 /* To watch pages */
@@ -121,24 +149,30 @@
 .to-watch-layout {
   display: grid;
   grid-template-columns: 200px minmax(0, 1fr);
+  border: solid 1px grey;
+  border-radius: 64px 0px 0px;
+  padding-top: 16px;
 }
 
 .to-watch__display-button-box {
   display: flex;
-  justify-content: space-around;
+  justify-content: start;
+  border-left: solid 1px grey;
+  padding-left: 8px;
 }
 
 .to-watch__display-container {
-  border: solid 1px grey;
-  margin: 16px 0px;
+  border: solid 1px rgba(234, 165, 255, 0.527);
+  border-right: none;
+  margin: 4px 0px;
 }
 
 .to-watch__movie-grid {
-  border: solid 1px rgb(88, 88, 88);
+  border-bottom: solid 1px rgba(88, 88, 88, 0.37);
   display: flex;
   overflow-x: auto;
-  gap: 16px;
-  padding: 10px;
+  gap: 4px;
+  padding: 2px 10px;
   scroll-behavior: smooth;
 }
 
@@ -147,11 +181,14 @@
 .seen-layout {
   display: grid;
   grid-template-columns: 200px minmax(0, 1fr);
+  border: solid 1px grey;
+  border-radius: 64px 0px 0px;
+  padding-top: 16px;
 }
 
 .seen__display-container {
   border: solid 1px rgb(88, 88, 88);
-  
+
 }
 
 .seen-page-boxes {
@@ -159,7 +196,7 @@
 
   display: flex;
   overflow-x: auto;
-  gap: 16px;
+  gap: 4px;
   padding: 10px;
   scroll-behavior: smooth;
 
@@ -179,17 +216,22 @@ h3 {
   position: relative;
 }
 
+.film-img-box {
+  position: relative;
+}
+
 .title-font {
   position: absolute;
   background-image: linear-gradient(rgba(0, 0, 0, 0), black);
-  width: 122px;
-  bottom: 24px;
+  width: 100%;
+  bottom: 4px;
   padding: 4px;
   padding-top: 20px;
-  left: 10px;
+  left: 0px;
+  font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   font-size: 1.2rem;
   font-weight: 500;
-  border-radius: 0px 0px 10px 10px;
+  border-radius: 0px 0px 4px 4px;
   transition: all 0.2s ease-in;
   opacity: 0;
 
@@ -209,6 +251,14 @@ h3 {
   /* make responsive design so where ever it is put the film card size stays the same but the number of cards on the grid changes*/
 }
 
+/* Search */
+
+.search-movie-grid {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
 .search-form {
   margin: 8px 0px;
 }
@@ -217,37 +267,75 @@ h3 {
 
 
 .film-card {
-  border-radius: 10px;
-  width: 150px;
+  border-radius: 4px;
+  /* width: 150px; */
   /* height: 350px; */
   margin: 4px;
   padding-bottom: 1px;
-  background-color: rgb(31, 31, 31);
+  background-color: var(--card);
   position: relative;
-  box-shadow: 0px 0px 6px #555555;
+  box-shadow: 0px 0px 6px #f8f8f8b4;
   transition: all 0.2s ease-in;
+  position: relative;
+  height: 206px;
+
 }
 
+
+
 .film-card:hover {
+
   transform: scale(1.04);
   z-index: 1000;
+
+
 }
 
 .film-card:hover .title-font {
   opacity: 1;
   cursor: pointer;
+  transition:
+      opacity 0.3s ease,
+      transform 0.3s ease;
 
 }
 
+.film-card:hover .date-display {
+  
+  display: none;
+  transition:
+      opacity 0.3s ease,
+      transform 0.3s ease;
+}
+
 .button-box {
-  border: 1px solid #555555;
-  margin: 4px;
-  border-radius: 10px;
+  /* border-top: solid 1px grey;
+  border-bottom: solid 1px grey; */
+  position: absolute;
+  bottom: 0px;
+  width: 100%;
   display: flex;
   justify-content: space-between;
-  align-items: center;
+  align-items: flex-end;
+
+  /* padding: 1rem; */
+
+  opacity: 0;
+  /* transform: translateY(15px); */
+
+  transition:
+      opacity 0.3s ease,
+      transform 0.3s ease;
+
+  pointer-events: none;
 
 
+}
+
+.film-card:hover .button-box {
+    opacity: 1;
+    /* transform: translateY(0); */
+    pointer-events: auto;
 }
 
 
@@ -259,17 +347,23 @@ h3 {
   gap: 16px;
   padding: 10px;
   scroll-behavior: smooth;
-} */  
+} */
 
 .movie-grid > div {
   flex: 0 0 auto;
-  width: 160px;
+  /* width: 160px; */
+}
+
+.recommdations-movie-grid {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
 }
 
 .rate-box {
   border: 1px solid #555555;
-  margin: 2px;
-  border-radius: 10px;
+  margin: 0px;
+  border-radius: 4px;
   display: flex;
   justify-content:space-around;
   background-color: #333333;
@@ -284,8 +378,8 @@ h3 {
 }
 
 .card-icon {
-  height: 20px;
-  margin: 4px 2px;
+  height: 18px;
+  margin: 2px 2px;
 }
 
 /* Watch names */
@@ -293,11 +387,11 @@ h3 {
 
 .watch-names-box, .seen-names-box {
   width: 100%;
-  padding: 4px;
+  padding: 8px 4px;
   margin: 0px 8px;
   text-align: start;
   font-size: 1rem;
-  border-bottom: solid 1px grey;
+  border-bottom: dashed 1px rgba(128, 128, 128, 0.473);
 }
 
 .rate-button, .seen-button {
@@ -327,6 +421,10 @@ h3 {
   flex-direction: column;
 }
 
+.info-modal__title {
+  margin: 0px;
+}
+
 .stats-image-box {
   display: flex;
   flex-direction: row;
@@ -334,10 +432,24 @@ h3 {
 
 .info-modal-stats {
   padding: 16px;
+  max-height: 400px;
 }
 
 .modal-film-img {
   height: 400px;
+}
+
+.info-modal__button-box {
+  display: flex;
+  justify-content: space-between;
+}
+
+.deck-button {
+  padding: 0px 8px;
+}
+
+.in-deck {
+  background-color: rgb(179, 179, 255);
 }
 
 .rating-modal {
@@ -368,6 +480,7 @@ h3 {
   justify-content: space-around;
   background-image: linear-gradient(#6f557a, #000000, #33333300);
   border-radius: 16px;
+  max-height: 195px;
 }
 
 .recommendation {
@@ -378,14 +491,16 @@ h3 {
   padding: 4px;
   border-radius: 8px;
   max-width: 100px;
-  
-
 
 }
 
 .recommendation-img {
   height: 140px;
-  
+
+}
+
+.info-modal__overview {
+  max-height: 148px;
 }
 
 .modal {
@@ -396,11 +511,11 @@ h3 {
 
 .film-img {
   background-color: white;
-  border-radius: 10px;
-  margin: 8px;
-  margin-bottom: 0px;
-  height: 190px;
-  width: 130px;
+  border-radius: 4px;
+  /* margin: 8px;
+  margin-bottom: 0px; */
+  height: 175px;
+  width: 120px;
   cursor: pointer;
 }
 

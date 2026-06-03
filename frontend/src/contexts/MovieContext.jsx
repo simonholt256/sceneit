@@ -6,44 +6,44 @@ export const useMovieContext = () => useContext(MovieContext);
 
 export const MovieProvider = ({ children }) => {
 
-    // =========================
-    // SEEN (watch history only)
-    // =========================
-    const [seen, setSeen] = useState(() => {
-        const stored = localStorage.getItem("seen");
-        return stored ? JSON.parse(stored) : [];
+  // =========================
+  // SEEN (watch history only)
+  // =========================
+  const [seen, setSeen] = useState(() => {
+    const stored = localStorage.getItem("seen");
+    return stored ? JSON.parse(stored) : [];
+  });
+
+  useEffect(() => {
+    localStorage.setItem("seen", JSON.stringify(seen));
+  }, [seen]);
+
+  const addToSeen = (movie, rating, review = "") => {
+    setSeen(prev => {
+      const exists = prev.some(m => m.id === movie.id);
+
+      if (exists) {
+        return prev.map(m =>
+          m.id === movie.id
+          ? {
+            ...m,
+            userRating: rating,
+            review
+          }
+          : m
+        );
+      }
+
+      return [
+        ...prev,
+        {
+          ...movie,
+          userRating: rating,
+          review
+        }
+      ];
     });
-
-    useEffect(() => {
-        localStorage.setItem("seen", JSON.stringify(seen));
-    }, [seen]);
-
-    const addToSeen = (movie, rating, review = "") => {
-        setSeen(prev => {
-            const exists = prev.some(m => m.id === movie.id);
-
-            if (exists) {
-                return prev.map(m =>
-                    m.id === movie.id
-                        ? {
-                            ...m,
-                            userRating: rating,
-                            review
-                        }
-                        : m
-                );
-            }
-
-            return [
-                ...prev,
-                {
-                    ...movie,
-                    userRating: rating,
-                    review
-                }
-            ];
-        });
-    };
+  };
 
     const removeFromSeen = (movieId) => {
         setSeen(prev => prev.filter(movie => movie.id !== movieId));
@@ -109,6 +109,47 @@ export const MovieProvider = ({ children }) => {
     };
 
     // =========================
+    // DECK
+    // =========================
+
+    const [deck, setDeck] = useState(() => {
+      const stored = localStorage.getItem("deck");
+      return stored ? JSON.parse(stored) : [];
+    });
+
+    useEffect(() => {
+      localStorage.setItem("deck", JSON.stringify(deck));
+    }, [deck]);
+
+    const addToDeck = (movie) => {
+      setDeck(prev => {
+
+        // already in deck
+        if (prev.some(m => m.id === movie.id)) {
+          return prev;
+        }
+
+        // deck full
+        if (prev.length >= 5) {
+          alert("Your deck already has 5 movies.");
+          return prev;
+        }
+
+        return [...prev, movie];
+      });
+    };
+
+    const removeFromDeck = (movieId) => {
+      setDeck(prev =>
+        prev.filter(movie => movie.id !== movieId)
+      );
+    };
+
+    const isInDeck = (movieId) => {
+      return deck.some(movie => movie.id === movieId);
+    };
+
+    // =========================
     // CONTEXT VALUE
     // =========================
     const value = {
@@ -124,7 +165,13 @@ export const MovieProvider = ({ children }) => {
         addToToWatch,
         removeFromToWatch,
         isToWatch,
-        getToWatchMovie
+        getToWatchMovie,
+
+        // Deck
+        deck,
+        addToDeck,
+        removeFromDeck,
+        isInDeck,
     };
 
     return (

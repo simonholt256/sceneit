@@ -13,7 +13,7 @@ function WatchNames() {
     if (toWatch) {
         return (
             <div>
-                <h2>To Wacth List</h2>
+                <h2>TO WATCH LIST</h2>
                 <div className="movie-grid">
                     {toWatch.map((movie) => (
                       <div
