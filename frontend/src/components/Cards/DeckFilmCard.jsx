@@ -3,19 +3,29 @@ import { useMovieContext } from "../../contexts/MovieContext";
 import CardBack from "../../assets/default/cardbackplaceholder.png"
 
 
-function DeckFilmCard({index}){
+function DeckFilmCard({ index, onSelectReview }){
 
-  const { deck } = useMovieContext();
-  const movie = deck[index];
+  const { deck, getSeenMovie } = useMovieContext();
+  
+
+  const movieId = deck[index];
+  const movie = movieId ? getSeenMovie(movieId) : null;
+
 
   return (
     <div className="deck-film-card">
       {movie ? (
-        <img
-          src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
-          alt={movie.title}
-          className="deck-card-img"
-        />
+        <>
+          <img
+            src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
+            alt={movie.title}
+            className="deck-card-img"
+            onClick={() => movie && onSelectReview(movie)}
+          />
+          <div>{movie.title}</div>
+          <div>{movie.review}</div>
+        </>
+        
       ) : (
         <img src={CardBack} className="cardback" />
       )}

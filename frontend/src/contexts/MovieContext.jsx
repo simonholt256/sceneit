@@ -121,33 +121,31 @@ export const MovieProvider = ({ children }) => {
       localStorage.setItem("deck", JSON.stringify(deck));
     }, [deck]);
 
-    const addToDeck = (movie) => {
+    const addToDeck = (movieId) => {
       setDeck(prev => {
-
-        // already in deck
-        if (prev.some(m => m.id === movie.id)) {
+        if (prev.includes(movieId)) {
           return prev;
         }
 
-        // deck full
         if (prev.length >= 5) {
           alert("Your deck already has 5 movies.");
           return prev;
         }
 
-        return [...prev, movie];
+        return [...prev, movieId];
       });
     };
 
     const removeFromDeck = (movieId) => {
       setDeck(prev =>
-        prev.filter(movie => movie.id !== movieId)
+        prev.filter(id => id !== movieId)
       );
     };
 
     const isInDeck = (movieId) => {
-      return deck.some(movie => movie.id === movieId);
+      return deck.includes(movieId);
     };
+
 
     // =========================
     // CONTEXT VALUE

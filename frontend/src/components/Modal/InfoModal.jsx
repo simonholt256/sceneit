@@ -106,7 +106,7 @@ function InfoModal() {
       if (inDeck) {
         removeFromDeck(selectedMovie.id);
       } else {
-        addToDeck(selectedMovie);
+        addToDeck(selectedMovie.id);
       }
     }
 

@@ -131,6 +131,7 @@
   text-align: start;
   padding: 4px 16px;
   line-height: 32px;
+  font-family: "Anta", sans-serif;
   font-size: 2rem;
   background-color: #3f3f3f46;
 }
@@ -210,6 +211,7 @@
 h3 {
   margin: 0;
   font-size: 1.6rem;
+  font-family: "Anta", sans-serif;
 }
 
 .title-box {
@@ -234,7 +236,10 @@ h3 {
   border-radius: 0px 0px 4px 4px;
   transition: all 0.2s ease-in;
   opacity: 0;
+}
 
+.title-font__date {
+  font-size: 0.8rem;
 }
 
 .card-back {

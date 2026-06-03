@@ -6,6 +6,8 @@ import Priority from "../../assets/icons/priority.png"
 import SeenIcon from "../../assets/icons/eye.png";
 import RateIcon from "../../assets/icons/rate.png";
 
+import NoPoster from "../../assets/default/noposter.png"
+
 function FilmCard({ movie }) {
 
     const {
@@ -50,18 +52,28 @@ function FilmCard({ movie }) {
     return (
         <div className="film-card">
             <div className="film-img-box">
-              <img
+              { movie.poster_path ?
+              (<img
                   src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
                   alt={movie.title}
                   className="film-img"
                   onClick={() => openInfoModal(movie)}
               />
+              ) : (
+              <img
+                  src={NoPoster}
+                  alt={movie.title}
+                  className="film-img"
+                  onClick={() => openInfoModal(movie)}
+              />
+              )}
+              
               <div
                   className="title-font"
                   onClick={() => openInfoModal(movie)}
               >
                   {movie.title}
-                  <div>{movie.release_date?.split("-")[0]}</div>
+                  <div className="title-font__date">{movie.release_date?.split("-")[0]}</div>
                   
               </div>
               
