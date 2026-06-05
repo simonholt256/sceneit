@@ -2,8 +2,11 @@ import { useState } from "react";
 
 import SearchBox from "../components/Boxes/SearchBox";
 
-import WatchNames from "../components/Lists/WatchNames";
-import SeenNames from "../components/Lists/SeenNames";
+// import WatchNames from "../components/Lists/WatchNames";
+// import SeenNames from "../components/Lists/SeenNames";
+
+import RecentSeen from "../components/Lists/RecentSeen";
+import WatchNamesByGenre from "../components/Lists/WatchNamesByGenre";
 
 import DeckBox from "../components/Boxes/DeckBox";
 
@@ -18,11 +21,14 @@ function DashBoard() {
     <>
       <h2>Scene it</h2>
       <div className='dash-layout'>
-        <div className="dash-container">
-            <WatchNames/>
+        <div className="dash-container-left-column">
+            <div className="test-box">a box</div>
+            <h2>TO WATCH BY GENRE</h2>
+            <WatchNamesByGenre/>
         </div>
         <div className="dash-container">
-            <SeenNames/>
+            <h2>RECENTLY SEEN</h2>
+            <RecentSeen/>
         </div>
         <div className="dash-container">
           
@@ -43,13 +49,13 @@ function DashBoard() {
               ) : (
                 <p>Select a deck film.</p>
               )}
-              <div>make the seen list to a recently seen list, which flciks through posters and when they are selected it shows the reviews in the review box</div>
             </div>
           </div>
           <h3>Your Deck</h3>
           <DeckBox onSelectReview={setSelectedReviewMovie} />
+          <h3>Recommended films from top films</h3>
           <div className="deck-recommendation-container">
-            <div>Recommended films from top films</div>
+            
             <RecommendationBox/>
           </div>
         </div>

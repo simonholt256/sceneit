@@ -16,7 +16,7 @@ function SeenNames() {
                 <h2>SEEN LIST</h2>
                 <div className='seen'></div>
                 <div className="movie-grid">
-                    {seen.map((movie) => (
+                    {[...seen].slice().reverse().map((movie) => (
                         <div
                             key={movie.id}
                             className="seen-names-box"

@@ -59,6 +59,7 @@ function Seen() {
                             <button onClick={() => setSelectedReviewMovie(movie)}>
                                 Your Review
                             </button>
+                            <div>{movie.id}</div>
                             {/* <div>Your rating: {movie.userRating}/10</div>
                             {movie.review && (
                                 <div>Your review: {movie.review}</div>

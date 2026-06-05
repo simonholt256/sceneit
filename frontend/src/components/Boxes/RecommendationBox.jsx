@@ -3,7 +3,6 @@ import { getPopularMovies } from "../../services/api";
 
 import FilmCard from "../Cards/FilmCard"
 
-
 function RecommendationBox() {
 
   const [movies, setMovies] = useState([]);
@@ -27,17 +26,13 @@ function RecommendationBox() {
     loadPopularMovies()
   }, [])
 
-  
   return (
-    <>
-      <div className="recommdations-movie-grid">
-        {movies.map((movie) => (
-            <FilmCard movie={movie} key={movie.id}/>
-        ))}
-      </div>
-    </>
+    <div className="recommdations-movie-grid">
+      {movies.slice(0, 15).map((movie) => (
+        <FilmCard movie={movie} key={movie.id} />
+      ))}
+    </div>
   )
-
 }
 
 export default RecommendationBox
