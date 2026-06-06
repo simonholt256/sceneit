@@ -46,30 +46,30 @@ function SearchBox() {
     };
 
     return(
-        <div className="card-back">
-            <h3>Search</h3>
-            <form onSubmit={handleSearch} className="search-form">
-                <input
-                    type="text"
-                    placeholder="Search for movies..."
-                    className="search-input"
-                    value={searchQuery}
-                    onChange={(e) => setSearchQuery(e.target.value)}
-                />
-                <button type="submit" className="search-button">Search</button>
-            </form>
+        <div className="search-card-back">
+          <h3>Search</h3>
+          <form onSubmit={handleSearch} className="search-form">
+            <input
+              type="text"
+              placeholder="Search for movies..."
+              className="search-input"
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+            />
+            <button type="submit" className="search-button">Search</button>
+          </form>
 
-                {error && <div className="error-message">{error}</div>}
+            {error && <div className="error-message">{error}</div>}
 
-            {loading ? (
-                <div className="loading">Loading...</div>
-            ) : (
-                <div className="search-movie-grid">
-                    {movies.map((movie) => (
-                        <FilmCard movie={movie} key={movie.id}/>
-                    ))}
-                </div>
-            )}    
+          {loading ? (
+            <div className="loading">Loading...</div>
+          ) : (
+            <div className="search-movie-grid">
+              {movies.slice(0, 9).map((movie) => (
+                <FilmCard movie={movie} key={movie.id}/>
+              ))}
+            </div>
+          )}    
         </div>
     );
 }

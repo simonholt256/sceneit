@@ -28,7 +28,7 @@ function RecommendationBox() {
 
   return (
     <div className="recommdations-movie-grid">
-      {movies.slice(0, 15).map((movie) => (
+      {movies.slice(0, 6).map((movie) => (
         <FilmCard movie={movie} key={movie.id} />
       ))}
     </div>

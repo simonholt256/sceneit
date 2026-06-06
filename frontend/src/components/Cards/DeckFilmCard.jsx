@@ -23,7 +23,7 @@ function DeckFilmCard({ index, onSelectReview }){
             onClick={() => movie && onSelectReview(movie)}
           />
           <div>{movie.title}</div>
-          <div>{movie.review}</div>
+          {/* <div>{movie.review}</div> */}
         </>
         
       ) : (
