@@ -47,7 +47,7 @@ function SearchBox() {
 
     return(
         <div className="card-back">
-            <h3>What'cha seen lately?</h3>
+            <h3>Search</h3>
             <form onSubmit={handleSearch} className="search-form">
                 <input
                     type="text"

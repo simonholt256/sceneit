@@ -31,24 +31,26 @@ function RecentSeen() {
   }
 
   return (
-    <div className="recent-seen-list">
-      <div>
-        <img className="recent-poster" src={`https://image.tmdb.org/t/p/w500${recent[activeIndex].poster_path}`}/>
+    <div className="recent-list">
+      <div className="recent-list__poster-display">
+        <img className="recent-list__poster-img" src={`https://image.tmdb.org/t/p/w500${recent[activeIndex].poster_path}`}/>
         <div>{recent[activeIndex].userRating}/10</div>
-        <div>{recent[activeIndex].review}</div>
+      </div>
+      <div className="recent-list__metal-box">
+        <h2 className="recent-list__header">RECENTLY SEEN</h2>
+        <div className="recent-list__container">
+          {recent.map((movie, index) => (
+            <div
+              key={movie.id}
+              className={`recent-item ${index === activeIndex ? "active" : ""}`}
+              onClick={() => openInfoModal(movie)}
+            >
+              {movie.title}
+            </div>
+          ))}
+        </div>
       </div>
       
-      <div>
-        {recent.map((movie, index) => (
-          <div
-            key={movie.id}
-            className={`recent-seen-item ${index === activeIndex ? "active" : ""}`}
-            onClick={() => openInfoModal(movie)}
-          >
-            {movie.title}
-          </div>
-        ))}
-      </div>
       
 
     </div>

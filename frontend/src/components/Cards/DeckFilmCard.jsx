@@ -19,7 +19,7 @@ function DeckFilmCard({ index, onSelectReview }){
           <img
             src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
             alt={movie.title}
-            className="deck-card-img"
+            className="deck-film-card__img"
             onClick={() => movie && onSelectReview(movie)}
           />
           <div>{movie.title}</div>
@@ -27,7 +27,7 @@ function DeckFilmCard({ index, onSelectReview }){
         </>
         
       ) : (
-        <img src={CardBack} className="cardback" />
+        <img src={CardBack} className="deck-film-card__cardback" />
       )}
     </div>
   );

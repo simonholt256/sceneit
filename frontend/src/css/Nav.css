@@ -1,31 +1,26 @@
 .navbar {
-  /* background-color: #743838; */
-  background-image: linear-gradient(rgba(0, 0, 0, 0), #743838);
-  border-radius: 0px 0px 16px 16px;
+  background-image: linear-gradient(rgba(0, 0, 0, 0), #8a8a8a);
+  border: solid 1px rgb(124, 124, 124);
+  margin-top: 20px;
+  height: 80px;
+
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding: 0.2rem;
-  padding-top: 16px;
-  padding-bottom: 8px;
-  font-size: 1.1rem;
-  
-}
-
-.navbar-homepage {
-  font-weight: bold;
-  padding: 0 10px;
 }
 
 .nav-link {
-  font-size: 1.1rem;
+  font-size: 2rem;
   padding: 0.5rem 1rem;
+  margin: 0px 16px;
   border-radius: 4px;
   transition: background-color 0.2s;
+  border: solid 2px grey;
 }
 
 .nav-link:hover, .navbar-homepage:hover {
-  background-color: rgba(24, 8, 8, 0.062);
+  border: solid 1px grey;
 }
 
 @media (max-width: 768px) {

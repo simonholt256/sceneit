@@ -84,7 +84,7 @@ function FilmCard({ movie }) {
                 
                 <div className="date-display">{movie.release_date?.split("-")[0]}</div>
             </div>
-            <div className="button-box">
+            <div className="film-card__button-box">
                 <div className="rate-box">
                   <button
                       className={`to-watch-button card-button ${toWatch ? "on-to-watch-list" : ""}`}
