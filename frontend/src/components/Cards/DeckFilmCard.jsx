@@ -22,7 +22,7 @@ function DeckFilmCard({ index, onSelectReview }){
             className="deck-film-card__img"
             onClick={() => movie && onSelectReview(movie)}
           />
-          <div>{movie.title}</div>
+          {/* <div>{movie.title}</div> */}
           {/* <div>{movie.review}</div> */}
         </>
         

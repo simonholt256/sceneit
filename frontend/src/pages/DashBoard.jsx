@@ -28,11 +28,11 @@ function DashBoard() {
           <SearchBox/>
           <div className="">
             <div className="dash__deck-display">
-              {/* <h3>Your Deck</h3> */}
+              <h3 className="dash__your-deck">Your Deck</h3>
               <DeckDisplay/>
             </div>
             
-            <h3>Recommended films from top films</h3>
+            <h3>Recommended for you</h3>
             <div className="deck-recommendation-container">
               <RecommendationBox/>
             </div>
