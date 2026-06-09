@@ -80,12 +80,18 @@ function ToWatch() {
 
   return (
     <div >
-      <h2>To Watch</h2>
+      {/* <h2>To Watch</h2> */}
 
       <div className="to-watch-layout">
 
         <div>
-          <WatchNames />
+          <WatchNames
+            view={view}
+            groupedByGenre={groupedByGenre}
+            groupedByPriority={groupedByPriority}
+            groupedByCustom={groupedByCustom}
+            genreMap={genreMap}
+          />
         </div>
 
         <div>
@@ -102,51 +108,53 @@ function ToWatch() {
             <div className="to-watch__selected-title">
               {view.toUpperCase()}
             </div>
+            <div className="to-watch__display-case">
+              {/* ================= GENRE VIEW ================= */}
+              {view === "genre" &&
+                Object.entries(groupedByGenre).map(([genreId, movies]) => (
+                  <div key={genreId}>
+                    <h3 id={`genre-${genreId}`} className="split-by-title">{genreMap[genreId]} - {movies.length}</h3>
 
-            {/* ================= GENRE VIEW ================= */}
-            {view === "genre" &&
-              Object.entries(groupedByGenre).map(([genreId, movies]) => (
-                <div key={genreId}>
-                  <h3 className="split-by-title">{genreMap[genreId]}</h3>
-
-                  <div className="to-watch__movie-grid">
-                    {movies.map(movie => (
-                      <FilmCard key={`${genreId}-${movie.id}`} movie={movie} />
-                    ))}
+                    <div className="to-watch__movie-grid">
+                      {movies.map(movie => (
+                        <FilmCard key={`${genreId}-${movie.id}`} movie={movie} />
+                      ))}
+                    </div>
                   </div>
-                </div>
-              ))
-            }
+                ))
+              }
 
-            {/* ================= PRIORITY VIEW ================= */}
-            {view === "priority" &&
-              Object.entries(groupedByPriority).map(([priority, movies]) => (
-                <div key={priority}>
-                  <h3 className="split-by-title">{priority}</h3>
+              {/* ================= PRIORITY VIEW ================= */}
+              {view === "priority" &&
+                Object.entries(groupedByPriority).map(([priority, movies]) => (
+                  <div key={priority}>
+                    <h3 id={`priority-${priority}`} className="split-by-title">{priority} - {movies.length}</h3>
 
-                  <div className="to-watch__movie-grid">
-                    {movies.map(movie => (
-                      <FilmCard key={`${priority}-${movie.id}`} movie={movie} />
-                    ))}
+                    <div className="to-watch__movie-grid">
+                      {movies.map(movie => (
+                        <FilmCard key={`${priority}-${movie.id}`} movie={movie} />
+                      ))}
+                    </div>
                   </div>
-                </div>
-              ))
-            }
+                ))
+              }
 
-            {/* ================= CUSTOM VIEW ================= */}
-            {view === "custom" &&
-              Object.entries(groupedByCustom).map(([tag, movies]) => (
-                <div key={tag}>
-                  <h3 className="split-by-title">{tag}</h3>
+              {/* ================= CUSTOM VIEW ================= */}
+              {view === "custom" &&
+                Object.entries(groupedByCustom).map(([tag, movies]) => (
+                  <div key={tag}>
+                    <h3 id={`custom-${tag}`} className="split-by-title">{tag} - {movies.length}</h3>
 
-                  <div className="to-watch__movie-grid">
-                    {movies.map(movie => (
-                      <FilmCard key={`${tag}-${movie.id}`} movie={movie} />
-                    ))}
+                    <div className="to-watch__movie-grid">
+                      {movies.map(movie => (
+                        <FilmCard key={`${tag}-${movie.id}`} movie={movie} />
+                      ))}
+                    </div>
                   </div>
-                </div>
-              ))
-            }
+                ))
+              }
+            </div>
+            
 
           </div>
 

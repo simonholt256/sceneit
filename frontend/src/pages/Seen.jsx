@@ -1,89 +1,181 @@
 import { useState } from "react";
 
-import NoFilms from "../components/PlaceHolders/NoFilms"
-import { useMovieContext } from "../contexts/MovieContext"
-import FilmCard from "../components/Cards/FilmCard"
+import NoFilms from "../components/PlaceHolders/NoFilms";
+import { useMovieContext } from "../contexts/MovieContext";
+import { useModalContext } from "../contexts/ModalContext";
+import FilmCard from "../components/Cards/FilmCard";
 
-import DeckBox from "../components/Boxes/DeckBox"
-
-import SeenNames from "../components/Lists/SeenNames" 
-
-
+import DeckBox from "../components/Boxes/DeckBox";
+import SeenNames from "../components/Lists/SeenNames";
 
 function Seen() {
-    const {seen} = useMovieContext();
-    const [selectedReviewMovie, setSelectedReviewMovie] = useState(null);
+  const { seen, getSeenMovie } = useMovieContext();
+  const { openRatingModal } = useModalContext();
 
-    const ratedMovies = seen?.filter(movie => movie.userRating > 0) || [];
-    const unratedMovies = seen?.filter(movie => movie.userRating === 0) || [];
+  const [selectedReviewMovie, setSelectedReviewMovie] = useState(null);
+  const [view, setView] = useState("rated");
 
+  function sortTitle(title) {
+    return title.replace(/^(the|a|an)\s+/i, "");
+  }
 
-    if (!seen || seen.length === 0) {
-        return <NoFilms state="Seen" />;
-    }
-
-    return (
-        <div>
-            <h2>Seen</h2>
-            <div className="seen-layout">
-              <SeenNames/>
-              <div className="seen__display-container">
-                
-                
-                <DeckBox onSelectReview={setSelectedReviewMovie} />
-                <div> Review box </div>
-                <div className="deck-review-container">
-                  <div className="review-text-box">
-                    {selectedReviewMovie ? (
-                      <>
-                        <h3>{selectedReviewMovie.title}</h3>
-
-                        <p>
-                          Rating: {selectedReviewMovie.userRating}/10
-                        </p>
-
-                        <p>
-                          {selectedReviewMovie.review || "No review written."}
-                        </p>
-                      </>
-                    ) : (
-                      <p>Select a review to view.</p>
-                    )}
-                </div>
-                </div>
-                <h3 className="split-by-title">Rated</h3>
-                <div className="seen-page-boxes">
-                    {ratedMovies.map(movie => (
-                        <div className="review-card-box" key={movie.id}>
-                            <FilmCard movie={movie} />
-                            <button onClick={() => setSelectedReviewMovie(movie)}>
-                                Your Review
-                            </button>
-                            <div>{movie.id}</div>
-                            {/* <div>Your rating: {movie.userRating}/10</div>
-                            {movie.review && (
-                                <div>Your review: {movie.review}</div>
-                            )} */}
-                        </div>
-                    ))}
-                </div>
-
-                <h3 className="split-by-title">Unrated</h3>
-                <div className="seen-page-boxes">
-                    {unratedMovies.map(movie => (
-                        <div key={movie.id}>
-                            <FilmCard movie={movie} />
-                            <div>No rating</div>
-                        </div>
-                    ))}
-                </div>
-              </div>
-            </div>
-            
-            
-        </div>
+  // -------------------------
+  // SPLIT LISTS
+  // -------------------------
+  const ratedMovies = (seen || [])
+    .filter(movie => movie.userRating > 0)
+    .sort((a, b) =>
+      sortTitle(a.title).localeCompare(sortTitle(b.title))
     );
 
+  const unratedMovies = (seen || [])
+    .filter(movie => movie.userRating === 0)
+    .sort((a, b) =>
+      sortTitle(a.title).localeCompare(sortTitle(b.title))
+    );
+
+  // -------------------------
+  // GROUP FUNCTION (reusable)
+  // -------------------------
+  const groupByLetter = (list) => {
+    return list.reduce((acc, movie) => {
+      const clean = sortTitle(movie.title);
+      const letter = clean.charAt(0).toUpperCase();
+
+      if (!acc[letter]) acc[letter] = [];
+      acc[letter].push(movie);
+
+      return acc;
+    }, {});
+  };
+
+  const groupedRated = groupByLetter(ratedMovies);
+  const groupedUnrated = groupByLetter(unratedMovies);
+
+  // -------------------------
+  // ACTIVE VIEW DATA
+  // -------------------------
+  const grouped = view === "rated" ? groupedRated : groupedUnrated;
+  const availableLetters = new Set(Object.keys(grouped));
+  const alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".split("");
+
+  // -------------------------
+  // EMPTY STATE
+  // -------------------------
+  if (!seen || seen.length === 0) {
+    return <NoFilms state="Seen" />;
+  }
+
+  return (
+    <div>
+      <h2>Seen</h2>
+
+      <div className="seen-layout">
+        <SeenNames />
+
+        <div className="seen__display-container">
+
+          <DeckBox onSelectReview={setSelectedReviewMovie} />
+
+          <div className="deck-review-container">
+            <div className="review-text-box">
+              {selectedReviewMovie ? (
+                <>
+                  <h3>{selectedReviewMovie.title}</h3>
+                  <p>Rating: {selectedReviewMovie.userRating}/10</p>
+                  <p>{selectedReviewMovie.review || "No review written."}</p>
+                </>
+              ) : (
+                <p>Select a review to view.</p>
+              )}
+            </div>
+          </div>
+
+          {/* ---------------- VIEW SWITCH ---------------- */}
+          <div className="seen-view-buttons">
+            <button onClick={() => setView("rated")}>
+              Rated ({ratedMovies.length})
+            </button>
+
+            <button onClick={() => setView("unrated")}>
+              Unrated ({unratedMovies.length})
+            </button>
+          </div>
+
+          <h3 className="split-by-title">
+            {view === "rated" ? "Rated" : "Unrated"}
+          </h3>
+
+          {/* ---------------- ALPHABET ---------------- */}
+          <div className="alphabet-nav">
+            {alphabet.map(letter => {
+              const active = availableLetters.has(letter);
+
+              return (
+                <button
+                  key={letter}
+                  disabled={!active}
+                  className={`alphabet ${active ? "active-letter" : "disabled-letter"}`}
+                  onClick={() => {
+                    if (!active) return;
+
+                    document
+                      .getElementById(`letter-${letter}`)
+                      ?.scrollIntoView({
+                        behavior: "smooth",
+                        block: "start",
+                        inline: "start"
+                      });
+                  }}
+                >
+                  {letter}
+                </button>
+              );
+            })}
+          </div>
+
+          {/* ---------------- LIST ---------------- */}
+          <div className="seen-page-boxes">
+
+            {Object.keys(grouped)
+              .sort()
+              .map(letter => (
+                <div key={letter} className="letter-container">
+
+                  <h2
+                    id={`letter-${letter}`}
+                    className="letter-divider"
+                  >
+                    {letter}
+                  </h2>
+
+                  {grouped[letter]
+                    .sort((a, b) =>
+                      sortTitle(a.title).localeCompare(sortTitle(b.title))
+                    )
+                    .map(movie => (
+                      <div
+                        key={movie.id}
+                        className="review-card-box"
+                      >
+                        <FilmCard movie={movie} />
+
+                        <button onClick={() => setSelectedReviewMovie(movie)}>
+                          Your Review
+                        </button>
+
+                        <div>{movie.id}</div>
+                      </div>
+                    ))}
+                </div>
+              ))
+            }
+
+          </div>
+        </div>
+      </div>
+    </div>
+  );
 }
 
-export default Seen
+export default Seen;

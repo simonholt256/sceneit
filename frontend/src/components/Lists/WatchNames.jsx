@@ -1,42 +1,74 @@
-import { useMovieContext } from "../../contexts/MovieContext";
-import { useModalContext } from "../../contexts/ModalContext";
 import NoFilms from "../PlaceHolders/NoFilms";
 
-function WatchNames() {
-  const {toWatch} = useMovieContext();
-  const { openInfoModal } = useModalContext();
+function WatchNames({
+  view,
+  groupedByGenre,
+  groupedByPriority,
+  groupedByCustom,
+  genreMap
+}) {
 
-    if (!toWatch || toWatch.length === 0) {
-      return <NoFilms state="To Watch" />;
-    }
+  function scrollToSection(id) {
+    document.getElementById(id)?.scrollIntoView({
+      behavior: "smooth",
+      block: "start"
+    });
+  }
 
-    if (toWatch) {
-        return (
-            <div>
-                <h2>TO WATCH LIST</h2>
-                <div className="movie-grid">
-                    {toWatch.map((movie) => (
-                      <div
-                          key={movie.id}
-                          className="watch-names-box"
-                          onClick={() => openInfoModal(movie)}
-                          style={{ cursor: "pointer" }}
-                      >
-                          - {movie.title}
-                      </div>
-                        
-                    ))}
-                </div>
-            </div>
-            
-        )
-    }
+  let items = [];
 
-    return (
-        <>
-            <NoFilms state="To watch"/>
-        </>
-    )
+  if (view === "genre") {
+    items = Object.keys(groupedByGenre)
+      .sort((a, b) =>
+        (genreMap[a] || "").localeCompare(genreMap[b] || "")
+      )
+      .map(id => ({
+        label: genreMap[id],
+        target: `genre-${id}`
+      }));
+  }
+
+  if (view === "priority") {
+    items = Object.keys(groupedByPriority)
+      .filter(key => groupedByPriority[key].length > 0)
+      .map(priority => ({
+        label: priority,
+        target: `priority-${priority}`
+      }));
+  }
+
+  if (view === "custom") {
+    items = Object.keys(groupedByCustom)
+      .filter(key => groupedByCustom[key].length > 0)
+      .sort()
+      .map(tag => ({
+        label: tag,
+        target: `custom-${tag}`
+      }));
+  }
+
+  if (items.length === 0) {
+    return <NoFilms state="To Watch" />;
+  }
+
+  return (
+    <div>
+      <h2>TO WATCH LIST</h2>
+
+      <div className="movie-grid">
+        {items.map(item => (
+          <div
+            key={item.target}
+            className="watch-names-box"
+            onClick={() => scrollToSection(item.target)}
+            style={{ cursor: "pointer" }}
+          >
+            - {item.label}
+          </div>
+        ))}
+      </div>
+    </div>
+  );
 }
 
-export default WatchNames
+export default WatchNames;

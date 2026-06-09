@@ -477,9 +477,23 @@ button:hover {
 
 
 
+/* to watch */
 
+.to-watch__display-case {
+  border: solid 1px purple;
+  height: 650px;
+  overflow-y: scroll;
 
+  /* Firefox */
+  scrollbar-width: none;
 
+  /* IE/Edge legacy */
+  -ms-overflow-style: none;
+}
+
+.to-watch__display-case::-webkit-scrollbar {
+  display: none;
+}
 
 .split-by-title {
   /* border-top: solid 1px var(--bold-two); */
@@ -510,9 +524,11 @@ button:hover {
 .to-watch-layout {
   display: grid;
   grid-template-columns: 200px minmax(0, 1fr);
-  border: solid 1px grey;
+  border: solid 6px rgb(80, 56, 92);
+  box-shadow: 0px 0px 10px var(--bold-two);
   border-radius: 64px 0px 0px;
   padding-top: 16px;
+  margin-top: 16px;
 }
 
 .to-watch__display-button-box {
@@ -560,11 +576,101 @@ button:hover {
   gap: 4px;
   padding: 10px;
   scroll-behavior: smooth;
+  overflow-y: auto;
 
 }
 
+/* to review */
+
+.seen-page-boxes {
+  /* height: 650px; */
+  overflow-y: auto;
+  scroll-behavior: smooth;
+  padding-right: 10px;
+}
+
+/* optional: hide scrollbar */
+/* .seen-page-boxes::-webkit-scrollbar {
+  display: none;
+}
+
+.seen-page-boxes {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+} */
+
+.alphabet-nav {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+  margin-bottom: 10px;
+}
+
+.alphabet {
+  padding: 4px 8px;
+  border: 1px solid #ccc;
+  background: transparent;
+  cursor: pointer;
+}
+
+.active-letter {
+  font-weight: bold;
+  color: white;
+  background: black;
+}
+
+.disabled-letter {
+  opacity: 0.3;
+  cursor: not-allowed;
+}
+
+.letter-divider {
+  position: sticky;
+  top: 0;
+  background: white;
+  padding: 5px;
+  z-index: 2;
+  scroll-margin-top: 620px;
+  scroll-margin-right: 400px;
+  
+}
+
+/**/
+
 .review-card-box {
   max-width: 150px;
+}
+
+.alphabet {
+  margin: 4px;
+  border: 0px;
+  padding: 4px 8px;
+}
+
+.active-letter {
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.disabled-letter {
+  cursor: default;
+}
+
+.disabled-letter:hover {
+  background-color: var(--card);
+}
+
+.letter-container {
+  display: flex;
+}
+
+.letter-divider {
+  font-size: 1.5rem;
+  margin-right: 4px;
+  padding: 4px;
+  height: 32px;
+  width: 32px;
+  background-color: var(--card);
 }
 
 
@@ -610,7 +716,7 @@ button:hover {
   border-bottom: solid 4px #929187;
   background-color: var(--coloured-card); */
   background-image: url("../assets/design/gridblue.png");
-  filter: saturate(0.5);
+  filter: saturate(1);
   border: solid 1px var(--bold-one);
 }
 
@@ -666,6 +772,7 @@ button:hover {
   margin: 2px;
 }
 
+
 .card-icon {
   height: 18px;
   margin: 2px 2px;
@@ -686,6 +793,8 @@ button:hover {
 .rate-button, .seen-button {
   margin: 2px 2px;
 }
+
+
 
 /* Modals */
 
@@ -818,8 +927,16 @@ button:hover {
   background-color: rgba(204, 202, 90, 0.856);
 }
 
+.have-seen:hover {
+  background-color: rgb(161, 247, 161);
+}
+
 .on-to-watch-list {
   background-color: rgba(223, 101, 101, 0.651);
+}
+
+.on-to-watch-list:hover {
+  background-color: rgb(255, 162, 138);
 }
 
 .modal-container {
