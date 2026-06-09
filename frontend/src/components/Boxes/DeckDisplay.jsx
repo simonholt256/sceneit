@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { useMovieContext } from "../../contexts/MovieContext";
 import DeckFilmCard from "../Cards/DeckFilmCard";
 
@@ -7,24 +7,34 @@ function DeckDisplay() {
 
   const [currentIndex, setCurrentIndex] = useState(0);
 
-  useEffect(() => {
-    if (deck.length === 0) return;
-
-    const interval = setInterval(() => {
-      setCurrentIndex((prev) => (prev + 1) % deck.length);
-    }, 8000);
-
-    return () => clearInterval(interval);
-  }, [deck.length]);
-
   const movieId = deck[currentIndex];
   const movie = movieId ? getSeenMovie(movieId) : null;
 
+  function nextMovie() {
+    if (deck.length === 0) return;
+
+    setCurrentIndex(prev =>
+      (prev + 1) % deck.length
+    );
+  }
+
+  function previousMovie() {
+    if (deck.length === 0) return;
+
+    setCurrentIndex(prev =>
+      prev === 0 ? deck.length - 1 : prev - 1
+    );
+  }
+
   return (
     <div className="dash__deck-box">
+
+      
+
       <div className="dash__deck-container">
         <DeckFilmCard index={currentIndex} />
       </div>
+
       <div className="dash__review-text-box">
         {movie ? (
           <>
@@ -36,6 +46,18 @@ function DeckDisplay() {
           <p>No deck films.</p>
         )}
       </div>
+      <div className="deck-controls">
+        <button onClick={previousMovie}>◀</button>
+
+          <span>
+            {deck.length > 0
+              ? `${currentIndex + 1} / ${deck.length}`
+              : "0 / 0"}
+          </span>
+
+          <button onClick={nextMovie}>▶</button>
+        </div>
+
     </div>
   );
 }

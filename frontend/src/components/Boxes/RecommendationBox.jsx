@@ -11,6 +11,10 @@ function RecommendationBox() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
+  const [page, setPage] = useState(0);
+
+  const moviesPerPage = 6;
+
   useEffect(() => {
     async function loadRecommendations() {
       try {
@@ -34,6 +38,7 @@ function RecommendationBox() {
         );
 
         setMovies(filtered);
+        setPage(0);
       } catch (err) {
         console.log(err);
         setError("Failed to load recommendations.");
@@ -62,11 +67,44 @@ function RecommendationBox() {
     return <div>Add movies to your deck to get recommendations.</div>;
   }
 
+  const totalPages = Math.ceil(movies.length / moviesPerPage);
+
+  const startIndex = page * moviesPerPage;
+  const currentMovies = movies.slice(
+    startIndex,
+    startIndex + moviesPerPage
+  );
+
+  function nextPage() {
+    setPage(prev => (prev + 1) % totalPages);
+  }
+
+  function previousPage() {
+    setPage(prev =>
+      prev === 0 ? totalPages - 1 : prev - 1
+    );
+  }
+
   return (
-    <div className="recommdations-movie-grid">
-      {movies.slice(0, 6).map(movie => (
-        <FilmCard key={movie.id} movie={movie} />
-      ))}
+    <div>
+      <div className="recommendation-controls">
+        <button onClick={previousPage}>◀</button>
+
+        <span>
+          {page + 1} / {totalPages}
+        </span>
+
+        <button onClick={nextPage}>▶</button>
+      </div>
+
+      <div className="recommdations-movie-grid">
+        {currentMovies.map(movie => (
+          <FilmCard
+            key={movie.id}
+            movie={movie}
+          />
+        ))}
+      </div>
     </div>
   );
 }
