@@ -26,13 +26,13 @@ function DashBoard() {
         </div>
         <div className="dash-container-right-column">
           <SearchBox/>
-          <div className="">
+          <div className="dash__right-right-column">
             <div className="dash__deck-display">
               <h3 className="dash__your-deck">Your Deck</h3>
               <DeckDisplay/>
             </div>
             
-            <h3>Recommended for you</h3>
+            
             <div className="deck-recommendation-container">
               <RecommendationBox/>
             </div>

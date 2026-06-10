@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useRef } from "react";
 
 import NoFilms from "../components/PlaceHolders/NoFilms";
 import { useMovieContext } from "../contexts/MovieContext";
@@ -18,6 +18,22 @@ function Seen() {
   function sortTitle(title) {
     return title.replace(/^(the|a|an)\s+/i, "");
   }
+
+  const listRef = useRef(null);
+
+  const scrollRight = () => {
+    listRef.current?.scrollBy({
+      left: listRef.current.clientWidth - 90,
+      behavior: "smooth",
+    });
+  };
+
+  const scrollLeft = () => {
+    listRef.current?.scrollBy({
+      left: -listRef.current.clientWidth - 90,
+      behavior: "smooth",
+    });
+  };
 
   // -------------------------
   // SPLIT LISTS
@@ -68,7 +84,6 @@ function Seen() {
 
   return (
     <div>
-      <h2>Seen</h2>
 
       <div className="seen-layout">
         <SeenNames />
@@ -102,7 +117,7 @@ function Seen() {
             </button>
           </div>
 
-          <h3 className="split-by-title">
+          <h3 className="seen__split-by-title">
             {view === "rated" ? "Rated" : "Unrated"}
           </h3>
 
@@ -135,41 +150,82 @@ function Seen() {
           </div>
 
           {/* ---------------- LIST ---------------- */}
-          <div className="seen-page-boxes">
+          <div className="seen-scroll-wrapper">
 
-            {Object.keys(grouped)
-              .sort()
-              .map(letter => (
-                <div key={letter} className="letter-container">
+            <button
+              className="scroll-arrow left"
+              onClick={scrollLeft}
+            >
+              ◀
+            </button>
 
-                  <h2
-                    id={`letter-${letter}`}
-                    className="letter-divider"
+            <div
+              className="seen-page-boxes"
+              ref={listRef}
+            >
+
+              {Object.keys(grouped)
+                .sort()
+                .map(letter => (
+                  <div
+                    key={letter}
+                    className="letter-container"
                   >
-                    {letter}
-                  </h2>
+                    <h2
+                      id={`letter-${letter}`}
+                      className="letter-divider"
+                    >
+                      {letter}
+                    </h2>
+                    {grouped[letter]
+                      .sort((a, b) =>
+                        sortTitle(a.title).localeCompare(
+                          sortTitle(b.title)
+                        )
+                      )
+                      .map(movie => (
+                        <div
+                          key={movie.id}
+                          className="review-card-box"
+                        >
+                          <FilmCard movie={movie} />
 
-                  {grouped[letter]
-                    .sort((a, b) =>
-                      sortTitle(a.title).localeCompare(sortTitle(b.title))
-                    )
-                    .map(movie => (
-                      <div
-                        key={movie.id}
-                        className="review-card-box"
-                      >
-                        <FilmCard movie={movie} />
+                          {view === "rated" ? (
+                            <button
+                              onClick={() =>
+                                setSelectedReviewMovie(movie)
+                              }
+                            >
+                              Your Review
+                            </button>
+                          ) : (
+                            <button
+                              onClick={() =>
+                                openRatingModal(
+                                  movie,
+                                  getSeenMovie(movie.id)
+                                )
+                              }
+                            >
+                              Rate/Review
+                            </button>
+                          )}
 
-                        <button onClick={() => setSelectedReviewMovie(movie)}>
-                          Your Review
-                        </button>
+                          <div>{movie.id}</div>
+                        </div>
+                      ))}
 
-                        <div>{movie.id}</div>
-                      </div>
-                    ))}
-                </div>
-              ))
-            }
+                  </div>
+                ))}
+
+            </div>
+
+            <button
+              className="scroll-arrow right"
+              onClick={scrollRight}
+            >
+              ▶
+            </button>
 
           </div>
         </div>

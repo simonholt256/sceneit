@@ -162,7 +162,7 @@ function InfoModal() {
             
                               <button
                                   className={`to-watch-button card-button ${toWatch ? "on-to-watch-list" : ""}`}
-                                  onClick={handleToWatch}
+                                  onClick={() => openPriorityModal(selectedMovie, getSeenMovie(selectedMovie.id))}
                               >
                                   <img className="card-icon" src={Priority} />
                               </button>

@@ -47,7 +47,7 @@ function DeckDisplay() {
         )}
       </div>
       <div className="deck-controls">
-        <button onClick={previousMovie}>◀</button>
+        <button className="dash-deck-arrows" onClick={previousMovie}>◀</button>
 
           <span>
             {deck.length > 0
@@ -55,7 +55,7 @@ function DeckDisplay() {
               : "0 / 0"}
           </span>
 
-          <button onClick={nextMovie}>▶</button>
+          <button className="dash-deck-arrows" onClick={nextMovie}>▶</button>
         </div>
 
     </div>

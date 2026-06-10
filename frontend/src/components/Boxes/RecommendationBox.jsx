@@ -86,15 +86,15 @@ function RecommendationBox() {
   }
 
   return (
-    <div>
+    <div className="recommendations-container">
       <div className="recommendation-controls">
-        <button onClick={previousPage}>◀</button>
-
+        <button className="recommendation-arrow" onClick={previousPage}>◀</button>
+        <h3>Recommendations</h3>
         <span>
           {page + 1} / {totalPages}
         </span>
 
-        <button onClick={nextPage}>▶</button>
+        <button className="recommendation-arrow" onClick={nextPage}>▶</button>
       </div>
 
       <div className="recommdations-movie-grid">

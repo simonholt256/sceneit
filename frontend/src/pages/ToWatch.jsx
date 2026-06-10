@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useRef } from "react";
 
 import NoFilms from "../components/PlaceHolders/NoFilms";
 import { useMovieContext } from "../contexts/MovieContext";
@@ -9,6 +9,15 @@ function ToWatch() {
 
   const { toWatch } = useMovieContext();
   const [view, setView] = useState("genre");
+
+  const scrollRefs = useRef({});
+
+  const scroll = (key, dir) => {
+    scrollRefs.current[key]?.scrollBy({
+      left: dir * scrollRefs.current[key].clientWidth - 90,
+      behavior: "smooth",
+    });
+  };
 
   const genreMap = {
     28: "Action",
@@ -79,9 +88,7 @@ function ToWatch() {
   });
 
   return (
-    <div >
-      {/* <h2>To Watch</h2> */}
-
+    <div>
       <div className="to-watch-layout">
 
         <div>
@@ -108,18 +115,45 @@ function ToWatch() {
             <div className="to-watch__selected-title">
               {view.toUpperCase()}
             </div>
+
             <div className="to-watch__display-case">
+
               {/* ================= GENRE VIEW ================= */}
               {view === "genre" &&
                 Object.entries(groupedByGenre).map(([genreId, movies]) => (
-                  <div key={genreId}>
-                    <h3 id={`genre-${genreId}`} className="split-by-title">{genreMap[genreId]} - {movies.length}</h3>
+                  <div key={genreId} className="scroll-wrapper">
+                    <h3 id={`genre-${genreId}`} className="split-by-title">
+                      {genreMap[genreId]} - {movies.length}
+                    </h3>
+                    <div className="arrows-box">
+                      <button
+                        className="scroll-arrow left"
+                        onClick={() => scroll(`genre-${genreId}`, -1)}
+                      >
+                        ◀
+                      </button>
 
-                    <div className="to-watch__movie-grid">
-                      {movies.map(movie => (
-                        <FilmCard key={`${genreId}-${movie.id}`} movie={movie} />
-                      ))}
-                    </div>
+                      <div
+                        className="to-watch__movie-grid scroll-row"
+                        ref={(el) =>
+                          (scrollRefs.current[`genre-${genreId}`] = el)
+                        }
+                      >
+                        {movies.map(movie => (
+                          <FilmCard
+                            key={`${genreId}-${movie.id}`}
+                            movie={movie}
+                          />
+                        ))}
+                      </div>
+
+                      <button
+                        className="scroll-arrow right"
+                        onClick={() => scroll(`genre-${genreId}`, 1)}
+                      >
+                        ▶
+                      </button>
+                    </div>   
                   </div>
                 ))
               }
@@ -127,14 +161,44 @@ function ToWatch() {
               {/* ================= PRIORITY VIEW ================= */}
               {view === "priority" &&
                 Object.entries(groupedByPriority).map(([priority, movies]) => (
-                  <div key={priority}>
-                    <h3 id={`priority-${priority}`} className="split-by-title">{priority} - {movies.length}</h3>
+                  <div key={priority} className="scroll-wrapper">
 
-                    <div className="to-watch__movie-grid">
-                      {movies.map(movie => (
-                        <FilmCard key={`${priority}-${movie.id}`} movie={movie} />
-                      ))}
+                    <h3 id={`priority-${priority}`} className="split-by-title">
+                      {priority} - {movies.length}
+                    </h3>
+
+                    <div className="arrows-box">
+
+                      <button
+                        className="scroll-arrow left"
+                        onClick={() => scroll(`priority-${priority}`, -1)}
+                      >
+                        ◀
+                      </button>
+
+                      <div
+                        className="to-watch__movie-grid scroll-row"
+                        ref={(el) =>
+                          (scrollRefs.current[`priority-${priority}`] = el)
+                        }
+                      >
+                        {movies.map(movie => (
+                          <FilmCard
+                            key={`${priority}-${movie.id}`}
+                            movie={movie}
+                          />
+                        ))}
+                      </div>
+
+                      <button
+                        className="scroll-arrow right"
+                        onClick={() => scroll(`priority-${priority}`, 1)}
+                      >
+                        ▶
+                      </button>
+
                     </div>
+
                   </div>
                 ))
               }
@@ -142,24 +206,51 @@ function ToWatch() {
               {/* ================= CUSTOM VIEW ================= */}
               {view === "custom" &&
                 Object.entries(groupedByCustom).map(([tag, movies]) => (
-                  <div key={tag}>
-                    <h3 id={`custom-${tag}`} className="split-by-title">{tag} - {movies.length}</h3>
+                  <div key={tag} className="scroll-wrapper">
 
-                    <div className="to-watch__movie-grid">
-                      {movies.map(movie => (
-                        <FilmCard key={`${tag}-${movie.id}`} movie={movie} />
-                      ))}
+                    <h3 id={`custom-${tag}`} className="split-by-title">
+                      {tag} - {movies.length}
+                    </h3>
+
+                    <div className="arrows-box">
+
+                      <button
+                        className="scroll-arrow left"
+                        onClick={() => scroll(`custom-${tag}`, -1)}
+                      >
+                        ◀
+                      </button>
+
+                      <div
+                        className="to-watch__movie-grid scroll-row"
+                        ref={(el) =>
+                          (scrollRefs.current[`custom-${tag}`] = el)
+                        }
+                      >
+                        {movies.map(movie => (
+                          <FilmCard
+                            key={`${tag}-${movie.id}`}
+                            movie={movie}
+                          />
+                        ))}
+                      </div>
+
+                      <button
+                        className="scroll-arrow right"
+                        onClick={() => scroll(`custom-${tag}`, 1)}
+                      >
+                        ▶
+                      </button>
+
                     </div>
+
                   </div>
                 ))
               }
+
             </div>
-            
-
           </div>
-
         </div>
-
       </div>
     </div>
   );
