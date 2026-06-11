@@ -107,18 +107,15 @@ function Seen() {
           </div>
 
           {/* ---------------- VIEW SWITCH ---------------- */}
-          <div className="seen-view-buttons">
+
+          <h3 className="seen__split-by-title">
             <button onClick={() => setView("rated")}>
               Rated ({ratedMovies.length})
             </button>
-
+            {view === "rated" ? "Rated" : "Unrated"}
             <button onClick={() => setView("unrated")}>
               Unrated ({unratedMovies.length})
             </button>
-          </div>
-
-          <h3 className="seen__split-by-title">
-            {view === "rated" ? "Rated" : "Unrated"}
           </h3>
 
           {/* ---------------- ALPHABET ---------------- */}
@@ -171,12 +168,12 @@ function Seen() {
                     key={letter}
                     className="letter-container"
                   >
-                    <h2
+                    <div
                       id={`letter-${letter}`}
                       className="letter-divider"
                     >
                       {letter}
-                    </h2>
+                    </div>
                     {grouped[letter]
                       .sort((a, b) =>
                         sortTitle(a.title).localeCompare(

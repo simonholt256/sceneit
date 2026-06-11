@@ -113,18 +113,19 @@ function InfoModal() {
     return createPortal(
         <div className="modal-overlay">
             <div className="info-modal">
-
+              
                 <div className="stats-image-box">
-
-                    <img
-                        src={
-                            selectedMovie.poster_path
-                                ? `https://image.tmdb.org/t/p/w500${selectedMovie.poster_path}`
-                                : NoPoster
-                        }
-                        alt={selectedMovie.title}
-                        className="modal-film-img"
-                    />
+                    <div className="info-modal__poster-box">
+                      <img
+                          src={
+                              selectedMovie.poster_path
+                                  ? `https://image.tmdb.org/t/p/w500${selectedMovie.poster_path}`
+                                  : NoPoster
+                          }
+                          alt={selectedMovie.title}
+                          className="modal-film-img"
+                      />
+                    </div>
 
                     <div className="info-modal-stats">
 
@@ -219,7 +220,7 @@ function InfoModal() {
                                 alt={movie.title}
                                 className="recommendation-img"
                             />
-                            <p>{movie.title}</p>
+                            <p className="info-modal__recommendation-title">{movie.title}</p>
                         </div>
                     ))}
                 </div>

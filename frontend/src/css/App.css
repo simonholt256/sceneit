@@ -16,7 +16,7 @@
   --card-hover: #707070;
 
   --coloured-card: rgba(154, 194, 194, 0.548);
-  
+
   --outer-border: #808080;
   --inner-border: #5f5f5f;
   --glow: #89e7ff;
@@ -60,6 +60,7 @@ body {
   min-height: 100vh;
   /* background-image: linear-gradient(to bottom, rgb(7, 7, 7) 300px, #75b1b9); */
   background-color: #191d1d;
+  background-image: linear-gradient(#0f1111,  #272e2e, #262c2c, #0f1111);
 }
 
 /* headers */
@@ -121,6 +122,10 @@ button:hover {
   border-color: var(--bold-two);
 }
 
+.scroll-arrow {
+  margin: 8px
+}
+
 /*----------------------------*/
 /* REUSABLE COMPONENTS */
 /*----------------------------*/
@@ -154,7 +159,7 @@ button:hover {
       transform 0.3s ease;
 }
 
-.film-card:hover .date-display { 
+.film-card:hover .date-display {
   display: none;
   transition:
       opacity 0.3s ease,
@@ -174,7 +179,7 @@ button:hover {
       opacity 0.3s ease,
       transform 0.3s ease;
 
-  
+
 }
 
 .film-card:hover .film-card__button-box {
@@ -190,6 +195,7 @@ button:hover {
   border-radius: 16px;
   margin: 4px;
   background-color: var(--bg-textbox);
+  width: 160px;
 }
 
 .deck-film-card__img {
@@ -234,7 +240,7 @@ button:hover {
 .dash-layout {
   display: grid;
   grid-template-columns: 240px  1fr;
-  
+
 }
 
 .dash-container {
@@ -260,7 +266,7 @@ button:hover {
 }
 
 .dash-container-left-column {
-  margin: 10px; 
+  margin: 10px;
 }
 
 
@@ -278,7 +284,7 @@ button:hover {
   /* border: solid 1px var(--outer-border); */
   margin: 16px 4px 0px 4px;
   padding: 8px;
-  
+
   /* border-top: solid 4px #fffdeb;
   border-left: solid 4px #fffdeb;
   border-right: solid 4px #929187;
@@ -286,11 +292,13 @@ button:hover {
   background-color: var(--coloured-card); */
   position: relative;
   /* width: 270px; */
-  height: 240px; 
+  height: 270px;
   background-color: var(--card);
   border: solid 4px var(--bold-one);
   border-radius: 32px;
   box-shadow: 0px 0px 10px var(--glow);
+  display: flex;
+  align-items: end;
 
 }
 
@@ -312,7 +320,7 @@ button:hover {
   line-height: 14px;
   padding: 8px 12px;
   width: 184px;
-  
+
   background-color: #000000;
   transform: rotate(-90deg);
 
@@ -328,7 +336,7 @@ button:hover {
   line-height: 14px;
   padding: 8px 12px;
   width: 184px;
-  
+
   background-color: #000000;
   transform: rotate(-90deg);
 
@@ -337,12 +345,13 @@ button:hover {
 }
 
 .recent-list__poster-title {
-  margin: 4px;
+  /* margin: 4px; */
   padding: 4px 8px;
   background-color: var(--bg);
-  border: solid 4px var(--bold-one);
+  width: 100%;
+  /* border: solid 4px var(--bold-one); */
   border-radius: 32px;
-  box-shadow: 0px 0px 10px var(--glow);
+  /* box-shadow: 0px 0px 10px var(--glow); */
   font-size: 1.4rem;
   white-space: nowrap;
   overflow: hidden;
@@ -357,7 +366,7 @@ button:hover {
   background-color: var(--card);
   border: solid 4px var(--bold-one);
   border-radius: 32px;
-  
+
   box-shadow: 0px 0px 10px var(--glow);
 }
 
@@ -458,6 +467,8 @@ button:hover {
 }
 
 .dash__deck-container {
+  display: flex;
+  justify-content: center;
 }
 
 .dash__review-text-box {
@@ -465,7 +476,8 @@ button:hover {
   border: solid 1px grey;
   border-radius: 16px;
   margin: 4px;
-  
+  width: 178px;
+
 }
 
 .dash__deck-display {
@@ -503,8 +515,8 @@ button:hover {
 }
 
 .review-text-box {
-  background-color: rgb(59, 59, 59);
-  border: solid 1px grey;
+  background-color: var(--bg-textbox);
+  border: solid 4px rgb(110, 90, 51);
   border-radius: 16px;
   height: 100%;
   box-shadow: 0px 0px 10px var(--bold-three);
@@ -529,7 +541,7 @@ button:hover {
 /* to watch */
 
 .to-watch__display-case {
-  border: solid 1px purple;
+  /* border: solid 1px purple; */
   height: 650px;
   overflow-y: scroll;
 
@@ -547,6 +559,7 @@ button:hover {
 .split-by-title {
   /* border-top: solid 1px var(--bold-two); */
   background-image: linear-gradient(rgba(240, 180, 255, 0.26), rgba(0, 0, 0, 0));
+  text-align: start;
   padding-left: 16px;
 }
 
@@ -564,7 +577,7 @@ button:hover {
   padding: 0px;
   /* border: solid 1px grey; */
   border-radius: 16px;
-  
+
   /* height: 140px; */
   background-color: var(--card);
 }
@@ -581,7 +594,7 @@ button:hover {
 .recommendation-arrow {
   height: 40px;
   margin: 8px 16px 4px 16px;
-  
+
 }
 
 /* To watch pages */
@@ -594,6 +607,7 @@ button:hover {
   border-radius: 64px 0px 0px;
   padding-top: 16px;
   margin-top: 16px;
+  max-width: 1090px;
 }
 
 .to-watch__display-button-box {
@@ -604,7 +618,7 @@ button:hover {
 }
 
 .to-watch__display-container {
-  border: solid 1px rgba(234, 165, 255, 0.527);
+  /* border: solid 1px rgba(234, 165, 255, 0.527); */
   border-right: none;
   margin: 4px 0px;
 }
@@ -649,28 +663,52 @@ button:hover {
 }
 
 .seen__display-container {
-  border: solid 1px var(--bold-three);
+  /* border: solid 1px var(--bold-three); */
+
 }
 
 .seen__split-by-title {
-  background-image: linear-gradient(rgba(182, 137, 71, 0.479), rgba(0, 0, 0, 0));
-  padding-left: 16px;
+  background-image: linear-gradient(rgba(182, 137, 71, 0.479), rgba(0, 0, 0, 0)); 
+  /* background-color: #b68a4754;
+  box-shadow: 0px 0px 8px #b68a4754; */
+  
+  /* border-radius: 32px; */
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  margin-right: 8px;
 }
 
 /*seen list*/
 
 .seen-list__list {
-  height: 790px;
+  height: 670px;
   overflow: scroll;
   overflow-x: hidden;
-  
+  margin: 0px 8px 8px 8px;
+  border: solid 1px grey;
+  background-color: #4e819e;
+  background-image: url("../assets/design/greybackground.png");
+  background-size: 100%;
+
+}
+
+.seen-list__list::-webkit-scrollbar {
+  display: none;
+}
+
+summary {
+  background-color: rgb(58, 58, 58);
+  text-align: left;
+  padding: 4px 4px;
+  border-bottom:solid 1px rgb(80, 80, 80);
+  height: 30px;
 }
 
 
 
 .seen-page-boxes {
-  border: solid 1px rgb(88, 88, 88);
-
+  /* border: solid 1px rgb(88, 88, 88); */
   display: flex;
   overflow-x: auto;
   gap: 4px;
@@ -693,6 +731,13 @@ button:hover {
 }
 
 .seen-scroll-wrapper {
+  display: flex;
+  border: solid 1px var(--bold-three);
+  margin-right: 8px;
+  border-radius: 16px;
+}
+
+.seen-view-buttons {
   display: flex;
 }
 
@@ -727,16 +772,7 @@ button:hover {
   cursor: not-allowed;
 }
 
-.letter-divider {
-  position: sticky;
-  top: 0;
-  background: white;
-  padding: 5px;
-  z-index: 2;
-  scroll-margin-top: 620px;
-  scroll-margin-right: 400px;
-  
-}
+
 
 /**/
 
@@ -776,9 +812,9 @@ button:hover {
   padding: 4px;
   /* height: 32px; */
   width: 32px;
-  background-color: var(--card);
+  /* background-image: linear-gradient( 90deg, rgba(182, 182, 182, 0.151), rgba(0, 0, 0, 0));
+  box-shadow: 0px 0px 4px rgba(128, 128, 128, 0.425); */
 }
-
 
 
 
@@ -812,7 +848,7 @@ button:hover {
 
 .search-card-back {
   display: grid;
-  grid-template-rows: 160px 1fr;
+  grid-template-rows: 140px 1fr;
   padding: 8px;
   margin: 8px;
   /* border-top: solid 4px #fffdeb;
@@ -829,6 +865,8 @@ button:hover {
   display: flex;
   justify-content: center;
   flex-wrap: wrap;
+
+
   /* make responsive design so where ever it is put the film card size stays the same but the number of cards on the grid changes*/
 }
 
@@ -837,6 +875,15 @@ button:hover {
 .movie-grid > div {
   flex: 0 0 auto;
   /* width: 160px; */
+}
+
+.watch-names__list-box {
+  height: 700px;
+  margin: 0px 8px 8px 8px;
+  border: solid 1px grey;
+  background-color: #4e819e;
+  background-image: url("../assets/design/greybackground.png");
+  background-size: 100%;
 }
 
 .recommdations-movie-grid {
@@ -881,6 +928,7 @@ button:hover {
   text-align: start;
   font-size: 1rem;
   border-bottom: dashed 1px rgba(128, 128, 128, 0.473);
+  background-color: var(--bg);
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -926,7 +974,7 @@ select, textarea {
 
 .stats-image-box {
   display: flex;
-  flex-direction: row;
+  /* flex-direction: row; */
 }
 
 .info-modal-stats {
@@ -935,8 +983,18 @@ select, textarea {
   max-height: 400px;
 }
 
-.modal-film-img {
+.info-modal__poster-box {
   height: 400px;
+  width: 50%;
+  border: solid 1px grey;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.modal-film-img {
+  height: 96%;
+
 }
 
 .info-modal__button-box {
@@ -953,12 +1011,44 @@ select, textarea {
 }
 
 .in-deck {
-  background-color: rgb(179, 179, 255);
+  background-color: #4e819e;
 }
+
+.in-deck:hover {
+  background-color: #73abcc;
+}
+
+.info-modal__overview {
+  max-height: 200px;
+  width: 268px;
+  white-space: wrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.info-modal__overview:hover {
+  max-height: 200px;
+  width: 268px;
+  white-space: wrap;
+  overflow:visible;
+  text-overflow: ellipsis;
+}
+
+.info-modal__recommendation-title {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* rating modal */
 
 .rating-modal {
 
 }
+
+/* priority */
+
+
 
 .priority-modal {
   border: solid 1px grey;
@@ -1003,9 +1093,7 @@ select, textarea {
 
 }
 
-.info-modal__overview {
-  max-height: 148px;
-}
+
 
 .modal {
   background: rgb(10, 10, 10);
@@ -1024,19 +1112,19 @@ select, textarea {
 }
 
 .have-seen {
-  background-color: rgba(204, 202, 90, 0.856);
+  background-color: #d3b75cda;
 }
 
 .have-seen:hover {
-  background-color: rgb(161, 247, 161);
+  background-color: #f8de8ad2;
 }
 
 .on-to-watch-list {
-  background-color: rgba(223, 101, 101, 0.651);
+  background-color: #cb7cd6c4;
 }
 
 .on-to-watch-list:hover {
-  background-color: rgb(255, 162, 138);
+  background-color: #f394ffde;
 }
 
 .modal-container {
@@ -1072,5 +1160,5 @@ select, textarea {
 }
 
 @media (max-width: 800px) {
-  
+
 }

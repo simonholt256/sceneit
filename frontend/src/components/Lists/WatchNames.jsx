@@ -54,19 +54,21 @@ function WatchNames({
   return (
     <div>
       <h2>TO WATCH LIST</h2>
-
-      <div className="movie-grid">
-        {items.map(item => (
-          <div
-            key={item.target}
-            className="watch-names-box"
-            onClick={() => scrollToSection(item.target)}
-            style={{ cursor: "pointer" }}
-          >
-            - {item.label}
-          </div>
-        ))}
+      <div className="watch-names__list-box">
+        <div className="movie-grid">
+          {items.map(item => (
+            <div
+              key={item.target}
+              className="watch-names-box"
+              onClick={() => scrollToSection(item.target)}
+              style={{ cursor: "pointer" }}
+            >
+              - {item.label}
+            </div>
+          ))}
       </div>
+      </div>
+      
     </div>
   );
 }

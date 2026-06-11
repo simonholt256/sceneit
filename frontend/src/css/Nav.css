@@ -32,7 +32,7 @@
 }
 
 .nav-link:hover, .navbar-homepage:hover {
-  border: solid 1px grey;
+  border: solid 2px rgb(101, 181, 196);
 }
 
 /* @media (max-width: 768px) {

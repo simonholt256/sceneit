@@ -70,6 +70,7 @@ function RecentSeen() {
             ? `${activeMovie.userRating}/10`
             : "Unrated"}
         </div>
+        <div className="recent-list__poster-title">{activeMovie.title}</div>
       </div>
       {/* <svg xmlns="http://www.w3.org/2000/svg" width="269" height="60" viewBox="0 0 269 60" fill="none">
         <path d="M0 12.5H193.5L211.5 0H269V59.5H0V12.5Z" fill="#D9D9D9"/>
@@ -77,7 +78,7 @@ function RecentSeen() {
       <div class="shape-box">
         Edit me
       </div> */}
-      <div className="recent-list__poster-title">{activeMovie.title}</div>
+      
 
       <div className="recent-list__metal-box">
         <h2 className="recent-list__header">RECENTLY ADDED</h2>
