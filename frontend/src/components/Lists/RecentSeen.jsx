@@ -54,32 +54,41 @@ function RecentSeen() {
           <path d="M44.4098 0H268.5V37.5L252 59.5V207.5L268.5 230V269.5H206L188.5 281.5H0V47.5L44.4098 0Z"
             fill="#8d8d8d"/>
         </svg> */}
+        <div className="recent-list__pic-rating-box">
+          <img
+            className="recent-list__poster-img"
+            src={`https://image.tmdb.org/t/p/w500${activeMovie.poster_path}`}
+            alt={activeMovie.title}
+          />
 
-        <img
-          className="recent-list__poster-img"
-          src={`https://image.tmdb.org/t/p/w500${activeMovie.poster_path}`}
-          alt={activeMovie.title}
-        />
+          <div className="rating">
+            {[...Array(10)].map((_, index) => (
+              <div
+                key={index}
+                className={`rating-bar-section ${
+                  activeMovie.listType === "seen" &&
+                  index < activeMovie.userRating
+                    ? "active"
+                    : ""
+                }`}
+              />
+            ))}
+
+            {/* {activeMovie.listType === "seen"
+              ? `${activeMovie.userRating}/10`
+              : "Unrated"} */}
+          </div>
+        </div>
+        
 
         <div className="list-type">
           {activeMovie.listType}
         </div>
 
-        <div className="rating">
-          {activeMovie.listType === "seen"
-            ? `${activeMovie.userRating}/10`
-            : "Unrated"}
-        </div>
+        
         <div className="recent-list__poster-title">{activeMovie.title}</div>
       </div>
-      {/* <svg xmlns="http://www.w3.org/2000/svg" width="269" height="60" viewBox="0 0 269 60" fill="none">
-        <path d="M0 12.5H193.5L211.5 0H269V59.5H0V12.5Z" fill="#D9D9D9"/>
-      </svg>
-      <div class="shape-box">
-        Edit me
-      </div> */}
       
-
       <div className="recent-list__metal-box">
         <h2 className="recent-list__header">RECENTLY ADDED</h2>
 

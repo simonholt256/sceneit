@@ -35,6 +35,12 @@
   border: solid 2px rgb(101, 181, 196);
 }
 
+@media (max-width: 800px) {
+  .nav-link {
+    font-size: 1.2rem;
+  }
+}
+
 /* @media (max-width: 768px) {
 
   .navbar-brand {

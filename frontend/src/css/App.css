@@ -275,9 +275,11 @@ button:hover {
 
 
 .recent-list {
-  /* border: solid 1px rgba(233, 158, 252, 0.568); */
-  /* height: 1110px; */
   width: 100%;
+}
+
+.recent-list__pic-rating-box {
+  display: flex;
 }
 
 .recent-list__poster-display {
@@ -285,63 +287,67 @@ button:hover {
   margin: 16px 4px 0px 4px;
   padding: 8px;
 
-  /* border-top: solid 4px #fffdeb;
+  border-top: solid 4px #fffdeb;
   border-left: solid 4px #fffdeb;
   border-right: solid 4px #929187;
   border-bottom: solid 4px #929187;
-  background-color: var(--coloured-card); */
+  background-color: var(--coloured-card);
   position: relative;
   /* width: 270px; */
-  height: 270px;
+
+
+  /* height: 270px; */
   background-color: var(--card);
   border: solid 4px var(--bold-one);
   border-radius: 32px;
   box-shadow: 0px 0px 10px var(--glow);
   display: flex;
-  align-items: end;
+  flex-direction: column;
 
 }
 
 .recent-list__poster-img {
-  position: absolute;
-  top: 10px;
-  left: 20%;
-  width: 64%;
-  height: auto;
-  z-index: 2;
-  object-fit: cover;
+  height: 210px;
+  width: 150px;
+  border-radius: 16px 0px 0px 0px;
 }
 
 .list-type {
   position: absolute;
-  top: 100px;
-  left: -32%;
-  font-size: 1.4rem;
+  top: 8px;
+  left: 8px;
+  font-size: 1.2rem;
   line-height: 14px;
   padding: 8px 12px;
-  width: 184px;
-
-  background-color: #000000;
-  transform: rotate(-90deg);
-
+  background-color: #00000075;
+  /* transform: rotate(-90deg); */
   z-index: 2;
   object-fit: cover;
+  border-radius: 16px 0px 16px 0px;
 }
 
 .rating {
-  position: absolute;
-  top: 100px;
-  right: -34%;
   font-size: 1.4rem;
-  line-height: 14px;
-  padding: 8px 12px;
-  width: 184px;
+  width: 100%;
+  border-radius: 0px 32px 0px 0px;
+  background-color: #5c5c5c;
+  display: flex;
+  flex-direction: column-reverse;
+  /* transform: rotate(-90deg); */
+}
 
-  background-color: #000000;
-  transform: rotate(-90deg);
+.rating-bar-section {
+  background-color: rgba(167, 161, 79, 0.479);
+}
 
-  z-index: 2;
-  object-fit: cover;
+.rating-bar-section {
+  margin: 4px;
+  height: 8%;
+  background-color: #444; /* unlit */
+}
+
+.rating-bar-section.active {
+  background-color: #f8e99496; /* lit */
 }
 
 .recent-list__poster-title {
@@ -350,7 +356,7 @@ button:hover {
   background-color: var(--bg);
   width: 100%;
   /* border: solid 4px var(--bold-one); */
-  border-radius: 32px;
+  border-radius: 0px 0px 16px 16px;
   /* box-shadow: 0px 0px 10px var(--glow); */
   font-size: 1.4rem;
   white-space: nowrap;
@@ -974,7 +980,6 @@ select, textarea {
 
 .stats-image-box {
   display: flex;
-  /* flex-direction: row; */
 }
 
 .info-modal-stats {
@@ -1027,11 +1032,9 @@ select, textarea {
 }
 
 .info-modal__overview:hover {
-  max-height: 200px;
-  width: 268px;
-  white-space: wrap;
+
   overflow:visible;
-  text-overflow: ellipsis;
+
 }
 
 .info-modal__recommendation-title {
@@ -1160,5 +1163,81 @@ select, textarea {
 }
 
 @media (max-width: 800px) {
+    .dash-layout {
+    display: grid;
+    grid-template-columns:1fr;
 
+  }
+
+  .dash-container-right-column {
+    display: grid;
+    grid-template-columns: 1fr;
+    height: 820px;
+  }
+
+  .film-img {
+    border-radius: 4px;
+    height: 160px;
+    width: 110px;
+    cursor: pointer;
+  }
+
+  .info-modal {
+    width: 100%;
+    position: fixed;
+    display: grid;
+    grid-template-columns: 1fr;
+    
+  }
+
+  .modal-film-img {
+    height: 90%;
+
+  }
+
+  .info-modal-stats {
+    position: relative;
+    padding: 16px;
+    max-height: 400px;
+  }
+
+  .stats-image-box {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .info-modal__overview {
+    max-height: 200px;
+    width: 100%;
+    white-space: wrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .recommendations {
+    overflow: scroll;
+  }
+
+  .recent-list__poster-img {
+    position: relative;
+    top: 10px;
+    left: 20%;
+  
+    height: 90%;
+    width: auto;
+    z-index: 2;
+    object-fit: cover;
+  }
+
+  .list-type {
+    display: none;
+  }
+
+  .rating {
+    display: none;
+  }
+
+  
 }
