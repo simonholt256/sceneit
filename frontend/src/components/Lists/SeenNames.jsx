@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Link } from "react-router-dom"
 
 import { useMovieContext } from "../../contexts/MovieContext";
 import { useModalContext } from "../../contexts/ModalContext";
@@ -74,8 +75,9 @@ function SeenNames() {
   }, {});
 
   return (
-    <div>
+    <div className="seennames">
       <h2>SEEN LIST</h2>
+      <Link to="/fulllists" className="full-list-link">Full list</Link>
       <div className="seen-view-toggle">
         <button
           className={view === "alphabet" ? "active" : ""}
@@ -135,26 +137,6 @@ function SeenNames() {
         </div>
       )}
 
-      {/* <div className="seen-list__list">
-        {Object.entries(groupedSeen).map(([letter, movies]) => (
-          <details key={letter} className="seen-letter-group">
-            <summary>
-              {letter} ({movies.length})
-            </summary>
-
-            {movies.map((movie) => (
-              <div
-                key={movie.id}
-                className="seen-names-box"
-                onClick={() => openInfoModal(movie)}
-                style={{ cursor: "pointer" }}
-              >
-                - {movie.title}
-              </div>
-            ))}
-          </details>
-        ))}
-      </div> */}
     </div>
   );
 }

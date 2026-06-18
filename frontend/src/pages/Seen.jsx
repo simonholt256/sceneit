@@ -84,8 +84,11 @@ function Seen() {
 
   return (
     <div>
-
-      <div className="seen-layout">
+      <div className="mobile__page-title-box">
+        <div>Culture Deck</div>
+        <div>Seen</div>
+      </div>
+      <div className="seen__layout">
         <SeenNames />
 
         <div className="seen__display-container">
@@ -147,7 +150,7 @@ function Seen() {
           </div>
 
           {/* ---------------- LIST ---------------- */}
-          <div className="seen-scroll-wrapper">
+          <div className="seen__scroll-wrapper">
 
             <button
               className="scroll-arrow left"

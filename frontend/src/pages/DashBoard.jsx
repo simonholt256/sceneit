@@ -1,9 +1,6 @@
-
+import Dash from "../MobilePages/Dash";
 
 import SearchBox from "../components/Boxes/SearchBox";
-
-// import WatchNames from "../components/Lists/WatchNames";
-// import SeenNames from "../components/Lists/SeenNames";
 
 import RecentSeen from "../components/Lists/RecentSeen";
 import WatchNamesByGenre from "../components/Lists/WatchNamesByGenre";
@@ -19,28 +16,32 @@ function DashBoard() {
   
 
   return (
-    <div className="dash-border">
-      <div className='dash-layout'>
-        <div className="dash-container">
-          <RecentSeen/>
-        </div>
-        <div className="dash-container-right-column">
-          <SearchBox/>
-          <div className="dash__right-right-column">
-            <div className="dash__deck-display">
-              <h3 className="dash__your-deck">Your Deck</h3>
-              <DeckDisplay/>
-            </div>
-            
-            
-            <div className="deck-recommendation-container">
-              <RecommendationBox/>
-            </div>
+    <>
+      <Dash/>
+      <div className="dashboard">
+        <div className='dashboard__layout'>
+          <div className="dashboard__recent-container">
+            <RecentSeen/>
           </div>
-          
-        </div>
-      </div>  
-    </div>
+          <div className="dashboard__search-and-deck-container">
+            <SearchBox/>
+            <div className="dashboard__deck-column">
+              <div className="dashboard__deck-display">
+                <h3 className="dashboard__deck-title">Your Deck</h3>
+                <DeckDisplay/>
+              </div>
+              
+              
+              <div className="dashboard__recommendation-container">
+                <RecommendationBox/>
+              </div>
+            </div>
+            
+          </div>
+        </div>  
+      </div>
+    </>
+    
       
   );
 }

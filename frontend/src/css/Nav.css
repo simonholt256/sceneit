@@ -55,3 +55,43 @@
     padding: 0.5rem;
   }
 } */
+
+/* Mobile Nav */
+
+.mobilenav {
+  position: fixed;
+  display: flex;
+  justify-content: space-between;
+  bottom: 0px;
+  height: 60px;
+  width: 100%;
+  max-width: 1090px;
+  background-color: rgb(165, 165, 165);
+  z-index: 10000;
+}
+
+.bottom-nav-bar-block {
+  height: 70px;
+  width: 100%;
+}
+
+.mobilenav__link {
+  padding: 8px 16px;
+  margin: 8px 8px;
+  background-color: #8a8a8a;
+  height: 40px;
+  font-size: 1.2rem;
+  border-radius: 32px;
+}
+
+@media (min-width: 800px) {
+    .mobilenav {
+    display: none;
+
+  }
+
+  .bottom-nav-bar-block {
+    display: none;
+  }
+
+}

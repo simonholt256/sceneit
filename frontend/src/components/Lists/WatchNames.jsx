@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom"
 import NoFilms from "../PlaceHolders/NoFilms";
 
 function WatchNames({
@@ -9,6 +10,7 @@ function WatchNames({
 }) {
 
   function scrollToSection(id) {
+    
     document.getElementById(id)?.scrollIntoView({
       behavior: "smooth",
       block: "start"
@@ -52,8 +54,9 @@ function WatchNames({
   }
 
   return (
-    <div>
+    <div className="watchnames">
       <h2>TO WATCH LIST</h2>
+      <Link to="/fulllists" className="full-list-link">Full list</Link>
       <div className="watch-names__list-box">
         <div className="movie-grid">
           {items.map(item => (

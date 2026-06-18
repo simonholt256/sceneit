@@ -1,9 +1,14 @@
 import { useState, useRef } from "react";
 
 import NoFilms from "../components/PlaceHolders/NoFilms";
+
 import { useMovieContext } from "../contexts/MovieContext";
+// import { useMediaQuery } from "../components/Hooks/UseMediaQuery";
+
 import FilmCard from "../components/Cards/FilmCard";
 import WatchNames from "../components/Lists/WatchNames";
+
+
 
 function ToWatch() {
 
@@ -89,7 +94,13 @@ function ToWatch() {
 
   return (
     <div>
-      <div className="to-watch-layout">
+
+      {/* <MobileToWatch/> */}
+      <div className="mobile__page-title-box">
+        <div>Culture Deck</div>
+        <div>To Watch</div>
+      </div>
+      <div className="to-watch__layout">
 
         <div>
           <WatchNames
@@ -119,6 +130,7 @@ function ToWatch() {
             <div className="to-watch__display-case">
 
               {/* ================= GENRE VIEW ================= */}
+              
               {view === "genre" &&
                 Object.entries(groupedByGenre).map(([genreId, movies]) => (
                   <div key={genreId} className="scroll-wrapper">

@@ -5,7 +5,10 @@ function Search() {
     
     return (
         <>
-            <h2>SEARCH</h2>
+            <div className="mobile__page-title-box">
+              <div>Culture Deck</div>
+              <div>Search</div>
+            </div>
             <SearchBox/>
         </>
     )
