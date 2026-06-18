@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useMovieContext } from "../../contexts/MovieContext";
 import { useModalContext } from "../../contexts/ModalContext";
+import { getPoster } from "../../utils/poster";
 
 function RecentSeen() {
   const { seen, toWatch } = useMovieContext();
@@ -57,7 +58,7 @@ function RecentSeen() {
         <div className="recent-list__pic-rating-box">
           <img
             className="recent-list__poster-img"
-            src={`https://image.tmdb.org/t/p/w500${activeMovie.poster_path}`}
+            src={getPoster(activeMovie)}
             alt={activeMovie.title}
           />
 

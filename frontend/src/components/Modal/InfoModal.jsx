@@ -3,6 +3,7 @@ import { createPortal } from "react-dom";
 import { useModalContext } from "../../contexts/ModalContext";
 import { useMovieContext } from "../../contexts/MovieContext";
 import { getMovieCredits, getRecommendedMovies } from "../../services/api";
+import { getPoster } from "../../utils/poster";
 
 import NoPoster from "../../assets/default/noposter.png";
 import ToWatchIcon from "../../assets/icons/ticket.png";
@@ -117,11 +118,7 @@ function InfoModal() {
                 <div className="stats-image-box">
                     <div className="info-modal__poster-box">
                       <img
-                          src={
-                              selectedMovie.poster_path
-                                  ? `https://image.tmdb.org/t/p/w500${selectedMovie.poster_path}`
-                                  : NoPoster
-                          }
+                          src={getPoster(selectedMovie)}
                           alt={selectedMovie.title}
                           className="modal-film-img"
                       />
@@ -212,11 +209,7 @@ function InfoModal() {
                             style={{ cursor: "pointer" }}
                         >
                             <img
-                                src={
-                                    movie.poster_path
-                                        ? `https://image.tmdb.org/t/p/w500${movie.poster_path}`
-                                        : NoPoster
-                                }
+                                src={getPoster(movie)}
                                 alt={movie.title}
                                 className="recommendation-img"
                             />

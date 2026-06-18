@@ -1,5 +1,7 @@
 import { useState } from "react"
 import { useMovieContext } from "../../contexts/MovieContext";
+import { getPoster } from "../../utils/poster";
+import NoPoster from "../../assets/default/noposter.png"
 import CardBack from "../../assets/default/cardbackplaceholder.png"
 
 
@@ -17,7 +19,7 @@ function DeckFilmCard({ index, onSelectReview }){
       {movie ? (
         <>
           <img
-            src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
+            src={getPoster(movie)}
             alt={movie.title}
             className="deck-film-card__img"
             onClick={() => movie && onSelectReview(movie)}

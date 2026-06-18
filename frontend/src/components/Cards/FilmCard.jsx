@@ -1,5 +1,6 @@
 import { useMovieContext } from "../../contexts/MovieContext";
 import { useModalContext } from "../../contexts/ModalContext";
+import { getPoster } from "../../utils/poster";
 
 import ToWatchIcon from "../../assets/icons/ticket.png";
 import Priority from "../../assets/icons/priority.png"
@@ -52,21 +53,12 @@ function FilmCard({ movie }) {
     return (
         <div className="film-card">
             <div className="film-img-box">
-              { movie.poster_path ?
-              (<img
-                  src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
-                  alt={movie.title}
-                  className="film-img"
-                  onClick={() => openInfoModal(movie)}
-              />
-              ) : (
               <img
-                  src={NoPoster}
+                  src={getPoster(movie)}
                   alt={movie.title}
                   className="film-img"
                   onClick={() => openInfoModal(movie)}
               />
-              )}
               
               <div
                   className="title-font"

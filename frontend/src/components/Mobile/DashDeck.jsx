@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useMovieContext } from "../../contexts/MovieContext";
+import { getPoster } from "../../utils/poster";
 import DeckFilmCard from "../Cards/DeckFilmCard";
 
 function DashDeck() {
@@ -30,7 +31,7 @@ function DashDeck() {
     <div className="dashdeck">
       <h3>Deck Spotlight</h3>
       <img
-        src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
+        src={getPoster(movie)}
         className="dashdeck__poster-img"
       
       />

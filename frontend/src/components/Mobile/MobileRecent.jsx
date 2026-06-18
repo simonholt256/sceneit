@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useMovieContext } from "../../contexts/MovieContext";
 import { useModalContext } from "../../contexts/ModalContext";
+import { getPoster } from "../../utils/poster";
 
 function MobileRecentSeen() {
   const { seen, toWatch } = useMovieContext();
@@ -51,7 +52,7 @@ function MobileRecentSeen() {
       <h3>Recent</h3>
       <img
         className="mobilerecentseen__poster-img"
-        src={`https://image.tmdb.org/t/p/w500${activeMovie.poster_path}`}
+        src={getPoster(activeMovie)}
         alt={activeMovie.title}
       />
       <div className="mobilerecentseen__rating-display">
@@ -80,7 +81,7 @@ function MobileRecentSeen() {
             {/* {movie.title} */}
             <img
               className="mobilerecentseen__recent-item-img"
-              src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
+              src={getPoster(movie)}
               alt={movie.title}
             />
           </div>
@@ -110,7 +111,7 @@ function MobileRecentSeen() {
             {/* {movie.title} */}
             <img
                 className="mobilerecentseen__recent-item-img"
-                src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
+                src={getPoster(movie)}
                 alt={movie.title}
               />
           </div>
