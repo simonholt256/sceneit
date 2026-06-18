@@ -16,8 +16,9 @@ function Deck() {
       </div>
       <div className="deck__container ">
         {[0, 1, 2, 3, 4].map((i) => (
-          <DeckFilmCard key={i} index={i}  />
+          <DeckFilmCard key={i} index={i}/>
         ))}
+        
       </div>
     </>
     

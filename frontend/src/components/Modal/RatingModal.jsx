@@ -29,11 +29,12 @@ function RatingModal() {
 
                 <h2>Rate {selectedMovie.title}</h2>
 
-                <select
+                <div className="rating-modal__input-container">
+                  <select
                     value={rating}
                     onChange={(e) => setRating(Number(e.target.value))}
-                >
-                    <option value="0">Select rating</option>
+                  >
+                    <option value="0">No rating</option>
                     <option value="1">1</option>
                     <option value="2">2</option>
                     <option value="3">3</option>
@@ -44,20 +45,23 @@ function RatingModal() {
                     <option value="8">8</option>
                     <option value="9">9</option>
                     <option value="10">10</option>
-                </select>
+                  </select>
 
-                <textarea
+                  <textarea
                     value={review}
                     onChange={(e) => setReview(e.target.value)}
                     placeholder="Write your review..."
-                />
+                  />
 
-                <button onClick={handleSave}>
+                  <button onClick={handleSave}>
                     Save Rating
-                </button>
+                  </button>
+                </div>
 
-                <button onClick={closeRatingModal}>
-                    Close
+                
+
+                <button className="close-button" onClick={closeRatingModal}>
+                    X
                 </button>
 
             </div>

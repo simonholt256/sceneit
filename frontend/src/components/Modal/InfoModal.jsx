@@ -199,7 +199,54 @@ function InfoModal() {
 
                     </div>
                 </div>
+                <div className="info-modal__mobile-button-box">
 
+                  <div className="rate-box">
+                    <button
+                        className={`to-watch-button card-button ${toWatch ? "on-to-watch-list" : ""}`}
+                        onClick={handleToWatch}
+                    >
+                        <img className="card-icon" src={ToWatchIcon} />
+                    </button>
+  
+                    <button
+                        className={`to-watch-button card-button ${toWatch ? "on-to-watch-list" : ""}`}
+                        onClick={() => openPriorityModal(selectedMovie, getSeenMovie(selectedMovie.id))}
+                    >
+                        <img className="card-icon" src={Priority} />
+                    </button>
+
+                    
+                  </div>
+
+                  <div className="rate-box">
+                    <button
+                        className={`seen-button card-button ${seen ? "have-seen" : ""}`}
+                        onClick={handleSeen}
+                    >
+                        <img src={SeenIcon} className="card-icon" />
+                    </button>
+
+                    <button
+                        className={`rate-button card-button ${seen ? "have-seen" : ""}`}
+                        onClick={() => openRatingModal(selectedMovie, getSeenMovie(selectedMovie.id))}
+                    >
+                        <img src={RateIcon} className="card-icon" />
+                    </button>
+                    {seen && (
+                      <button
+                        className={`card-button deck-button ${inDeck ? "in-deck" : ""}`}
+                        onClick={handleDeck}
+                      >
+                        Deck
+                      </button>
+                    )}
+                    
+                  </div>
+
+
+
+              </div>
                 <div className="recommendations">
                     {recommendations.slice(0, 5).map(movie => (
                         <div

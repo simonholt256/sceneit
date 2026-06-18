@@ -322,6 +322,22 @@ button:hover {
   /* transform: rotate(-90deg); */
 }
 
+.rating-modal {
+  padding: 8px;
+  border: solid 1px var(--outer-border);
+  border-radius: 16px;
+  position: relative;
+  max-width: 500px;
+  width: 90%;
+}
+
+.rating-modal__input-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 140px;
+}
+
 .rating-bar-section {
   background-color: rgba(167, 161, 79, 0.479);
 }
@@ -879,8 +895,8 @@ select, textarea {
   padding: 20px;
   border-radius: 10px;
   max-width: 600px;
-  height: 100vh;
-  margin-top: 60px;
+  height: 660px;
+  
   position: fixed;
   display: flex;
   flex-direction: column;
@@ -901,6 +917,7 @@ select, textarea {
 }
 
 .info-modal__poster-box {
+  position: relative;
   height: 400px;
   width: 50%;
   border: solid 1px grey;
@@ -973,6 +990,8 @@ select, textarea {
   display: flex;
   flex-direction: column;
   position: relative;
+  max-width: 500px;
+  width: 90%;
 }
 
 .close-button {
@@ -1119,15 +1138,30 @@ select, textarea {
   }
 
   .info-modal {
-    width: 100%;
-    position: fixed;
-    display: grid;
-    grid-template-columns: 1fr;
     
+    width: 90%;
+    height: 90%;
+    top: 8px;
+    padding: 4px;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+
+  .info-modal__poster-box {
+    position: relative;
+    height: 100%;
+    width: 100%;
+    border: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
 
   .modal-film-img {
-    height: 90%;
+    height: 260px;
+    
 
   }
 
@@ -1138,10 +1172,8 @@ select, textarea {
   }
 
   .stats-image-box {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
+    display: grid;
+    grid-template-columns: 1fr 1.2fr;
   }
 
   .info-modal__overview {
@@ -1152,8 +1184,27 @@ select, textarea {
     text-overflow: ellipsis;
   }
 
+  .info-modal__mobile-button-box {
+    position: absolute;
+    bottom: 220px;
+    display: flex;
+    align-items: center;
+    width: 98%;
+    justify-content: space-between;
+    
+  }
+
+  .info-modal__button-box {
+    display: none;
+  }
+
   .recommendations {
-    overflow: scroll;
+    overflow-x: scroll;
+    max-height: 210px;
+  }
+
+  .recommendation-img {
+    
   }
 
   .recent-list__poster-img {
@@ -1211,6 +1262,8 @@ select, textarea {
   .mobile__page-title-box {
     display: none;
   }
+
+  
 
 }
 
@@ -1514,5 +1567,13 @@ select, textarea {
     flex-direction: column;
     align-items: center;
 
+  }
+
+  .deck-film-card {
+    width: 240px;
+  }
+
+  .deck-film-card {
+    margin-top: 32px;
   }
 }
