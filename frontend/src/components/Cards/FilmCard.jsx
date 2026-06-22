@@ -36,7 +36,7 @@ function FilmCard({ movie }) {
         if (seen) {
             removeFromSeen(movie.id);
         } else {
-            addToSeen(movie, 0);
+            addToSeen(movie.id, 0);
         }
     }
 
@@ -46,7 +46,7 @@ function FilmCard({ movie }) {
         if (toWatch) {
             removeFromToWatch(movie.id);
         } else {
-            addToToWatch(movie);
+            addToToWatch(movie.id);
         }
     }
 

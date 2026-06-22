@@ -1,21 +1,21 @@
 import { supabase } from "../lib/supabase";
 
-const LS_KEY = "to_watch_movies";
+const LS_KEY = "seen_movies";
 
 
 // =========================
 // READ
 // =========================
-export const getToWatch = async (user) => {
+export const getSeen = async (user) => {
   // Logged in → Supabase
   if (user) {
     const { data, error } = await supabase
-      .from("to_watch_movies")
+      .from("seen_movies")
       .select("*")
       .eq("user_id", user.id);
 
     if (error) {
-      console.log("getToWatch error:", error);
+      console.log("getSeen error:", error);
       return [];
     }
 
@@ -28,53 +28,43 @@ export const getToWatch = async (user) => {
 
 
 // =========================
-// CREATE / UPDATE
+// CREATE / UPDATE (UPSERT)
 // =========================
-export const upsertToWatch = async (
-  user,
-  movie,
-  priority = "",
-  custom = ""
-) => {
+export const upsertSeen = async (user, movieId, rating, review = "") => {
+  // ✅ normalize movieId (CRITICAL FIX)
+  const id =
+    typeof movieId === "object"
+      ? movieId.id
+      : movieId;
+
   // Logged in → Supabase
   if (user) {
-    const { error } = await supabase.from("to_watch_movies").upsert({
+    const { error } = await supabase.from("seen_movies").upsert({
       user_id: user.id,
-      movie_id: movie.id,
-      priority,
-      custom,
+      movie_id: id,
+      rating,
+      review,
     });
 
     if (error) {
-      console.log("upsertToWatch error:", error);
+      console.log("upsertSeen error:", error);
     }
 
     return;
   }
 
-  // Guest → localStorage (ID-only)
+  // Guest → localStorage
   const current = JSON.parse(localStorage.getItem(LS_KEY) || "[]");
 
-  const exists = current.some((m) => m.movie_id === movie.id);
+  const exists = current.some((m) => m.movie_id === id);
 
   const updated = exists
     ? current.map((m) =>
-        m.movie_id === movie.id
-          ? {
-              movie_id: movie.id,
-              priority,
-              custom,
-            }
+        m.movie_id === id
+          ? { movie_id: id, rating, review }
           : m
       )
-    : [
-        ...current,
-        {
-          movie_id: movie.id,
-          priority,
-          custom,
-        },
-      ];
+    : [...current, { movie_id: id, rating, review }];
 
   localStorage.setItem(LS_KEY, JSON.stringify(updated));
 };
@@ -83,17 +73,17 @@ export const upsertToWatch = async (
 // =========================
 // DELETE
 // =========================
-export const deleteToWatch = async (user, movieId) => {
+export const deleteSeen = async (user, movieId) => {
   // Logged in → Supabase
   if (user) {
     const { error } = await supabase
-      .from("to_watch_movies")
+      .from("seen_movies")
       .delete()
       .eq("user_id", user.id)
       .eq("movie_id", movieId);
 
     if (error) {
-      console.log("deleteToWatch error:", error);
+      console.log("deleteSeen error:", error);
     }
 
     return;

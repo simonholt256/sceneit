@@ -1,6 +1,6 @@
 import FilmCard from "../Cards/FilmCard"
 import { useState, useEffect } from "react";
-import { searchMovies, getPopularMovies } from "../../services/api";
+import { searchMovies, getPopularMovies } from "../../services/movieServices";
 
 function SearchBox() {
     const [searchQuery, setSearchQuery] = useState("");

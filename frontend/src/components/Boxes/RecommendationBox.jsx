@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useMovieContext } from "../../contexts/MovieContext";
-import { getRecommendedMovies } from "../../services/api";
+import { getRecommendedMovies } from "../../services/movieServices";
 
 import FilmCard from "../Cards/FilmCard";
 
@@ -21,8 +21,8 @@ function RecommendationBox() {
         setLoading(true);
 
         const results = await Promise.all(
-          deck.map(movieId =>
-            getRecommendedMovies(movieId)
+          deck.map(movie =>
+            getRecommendedMovies(movie.movie_id)
           )
         );
 
@@ -34,7 +34,7 @@ function RecommendationBox() {
         );
 
         const filtered = uniqueMovies.filter(
-          movie => !deck.includes(movie.id)
+          movie => !deck.some(d => d.movie_id === movie.id)
         );
 
         setMovies(filtered);
@@ -110,43 +110,3 @@ function RecommendationBox() {
 }
 
 export default RecommendationBox;
-
-// import { useState, useEffect } from "react"
-// import { getPopularMovies } from "../../services/api";
-// const { deck } = useMovieContext();
-
-// import FilmCard from "../Cards/FilmCard"
-
-// function RecommendationBox() {
-
-//   const [movies, setMovies] = useState([]);
-//   const [error, setError] = useState(null)
-//   const [loading, setLoading] = useState(true)
-
-//   useEffect(() => {
-//     const loadPopularMovies = async () => {
-//       try {
-//         const popularMovies = await getPopularMovies()
-//         setMovies(popularMovies)
-//       } catch (err) {
-//         console.log(err)
-//         setError("Failed to load movies.")
-//       }
-//       finally {
-//         setLoading(false)
-//       }
-//     }
-
-//     loadPopularMovies()
-//   }, [])
-
-//   return (
-//     <div className="recommdations-movie-grid">
-//       {movies.slice(0, 6).map((movie) => (
-//         <FilmCard movie={movie} key={movie.id} />
-//       ))}
-//     </div>
-//   )
-// }
-
-// export default RecommendationBox

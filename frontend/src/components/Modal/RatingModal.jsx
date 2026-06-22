@@ -19,7 +19,7 @@ function RatingModal() {
     if (!isRatingOpen || !selectedMovie) return null;
 
     function handleSave() {
-        addToSeen(selectedMovie, rating, review);
+        addToSeen(selectedMovie.id, rating, review);
         closeRatingModal();
     }
 

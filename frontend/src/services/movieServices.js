@@ -1,6 +1,25 @@
 const API_KEY = "f1105dec192092db245d48e5d5627fc1"
 const BASE_URL = "https://api.themoviedb.org/3"
 
+export const getMovieById = async (movieId) => {
+    const response = await fetch(
+        `${BASE_URL}/movie/${movieId}?api_key=${API_KEY}`
+    );
+
+    console.log("movieId:", movieId)
+
+    const data = await response.json();
+    return data;
+};
+
+export const getMoviesByIds = async (movieIds) => {
+    if (!movieIds?.length) return [];
+
+    return Promise.all(
+        movieIds.map((id) => getMovieById(id))
+    );
+};
+
 export const getPopularMovies = async () => {
     const response = await fetch(`${BASE_URL}/movie/popular?api_key=${API_KEY}`);
     const data = await response.json()

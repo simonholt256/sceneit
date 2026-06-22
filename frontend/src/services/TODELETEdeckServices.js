@@ -10,7 +10,7 @@ export const getDeck = async (user) => {
   // Logged in → Supabase
   if (user) {
     const { data, error } = await supabase
-      .from("decks")
+      .from("deck_movies")
       .select("*")
       .eq("user_id", user.id);
 
@@ -33,7 +33,7 @@ export const getDeck = async (user) => {
 export const addToDeck = async (user, movieId) => {
   // Logged in → Supabase
   if (user) {
-    const { error } = await supabase.from("decks").insert({
+    const { error } = await supabase.from("deck_movies").insert({
       user_id: user.id,
       movie_id: movieId,
     });
@@ -70,7 +70,7 @@ export const removeFromDeck = async (user, movieId) => {
   // Logged in → Supabase
   if (user) {
     const { error } = await supabase
-      .from("decks")
+      .from("deck_movies")
       .delete()
       .eq("user_id", user.id)
       .eq("movie_id", movieId);
@@ -98,7 +98,7 @@ export const isInDeck = async (user, movieId) => {
   // Logged in → Supabase
   if (user) {
     const { data, error } = await supabase
-      .from("decks")
+      .from("deck_movies")
       .select("id")
       .eq("user_id", user.id)
       .eq("movie_id", movieId)

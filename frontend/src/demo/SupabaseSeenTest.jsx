@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { supabase } from "../lib/supabase";
 
-export default function SupabaseSeenTest() {
+export default function SupabaseMovieTest() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [user, setUser] = useState(null);
@@ -9,17 +9,20 @@ export default function SupabaseSeenTest() {
   const [movieId, setMovieId] = useState("");
   const [rating, setRating] = useState("");
   const [review, setReview] = useState("");
+  const [priority, setPriority] = useState("");
+  const [custom, setCustom] = useState("");
 
-  const [seenMovies, setSeenMovies] = useState([]);
+  const [entries, setEntries] = useState([]);
 
-  // fetch list
-
-  const fetchSeenMovies = async () => {
+  // ------------------------
+  // FETCH ENTRIES
+  // ------------------------
+  const fetchMovieEntries = async () => {
     if (!user) return;
 
     const { data, error } = await supabase
-      .from("seen_movies")
-      .select("id, movie_id, rating, review")
+      .from("movie_entries")
+      .select("*")
       .eq("user_id", user.id);
 
     if (error) {
@@ -27,7 +30,7 @@ export default function SupabaseSeenTest() {
       return;
     }
 
-    setSeenMovies(data);
+    setEntries(data);
   };
 
   // ------------------------
@@ -47,32 +50,20 @@ export default function SupabaseSeenTest() {
     return () => listener.subscription.unsubscribe();
   }, []);
 
-
-  // fetch when user changes
-
   useEffect(() => {
-    if (user) {
-      fetchSeenMovies();
-    } else {
-      setSeenMovies([]);
-    }
+    if (user) fetchMovieEntries();
+    else setEntries([]);
   }, [user]);
 
   // ------------------------
-  // SIGN UP / LOGIN
+  // AUTH
   // ------------------------
   const signUp = async () => {
-    await supabase.auth.signUp({
-      email,
-      password,
-    });
+    await supabase.auth.signUp({ email, password });
   };
 
   const signIn = async () => {
-    await supabase.auth.signInWithPassword({
-      email,
-      password,
-    });
+    await supabase.auth.signInWithPassword({ email, password });
   };
 
   const signOut = async () => {
@@ -80,21 +71,19 @@ export default function SupabaseSeenTest() {
   };
 
   // ------------------------
-  // ADD TO TABLE
+  // INSERT FUNCTIONS
   // ------------------------
-  const addSeen = async () => {
+  const addEntry = async (category, extra = {}) => {
     if (!user) return;
 
-    const { error } = await supabase
-      .from("seen_movies")
-      .insert([
-        {
-          user_id: user.id,
-          movie_id: movieId,
-          rating: rating ? Number(rating) : null,
-          review: review,
-        },
-      ]);
+    const { error } = await supabase.from("movie_entries").insert([
+      {
+        user_id: user.id,
+        movie_id: Number(movieId),
+        category,
+        ...extra,
+      },
+    ]);
 
     if (error) {
       alert(error.message);
@@ -105,15 +94,37 @@ export default function SupabaseSeenTest() {
     setMovieId("");
     setRating("");
     setReview("");
+    setPriority("");
+    setCustom("");
 
-    fetchSeenMovies();
+    fetchMovieEntries();
   };
+
+  const addToWatch = () =>
+    addEntry("to_watch", {
+      priority: priority ? Number(priority) : null,
+      custom: custom || null,
+    });
+
+  const addSeen = () =>
+    addEntry("seen", {
+      rating: rating ? Number(rating) : null,
+      review: review || null,
+    });
+
+  const addDeck = () => addEntry("deck");
+
+  // ------------------------
+  // RENDER
+  // ------------------------
+  const toWatch = entries.filter((e) => e.category === "to_watch");
+  const seen = entries.filter((e) => e.category === "seen");
+  const deck = entries.filter((e) => e.category === "deck");
 
   return (
     <div style={{ padding: "20px" }}>
-      <h2>Supabase Seen Test</h2>
+      <h2>Supabase Movie Test</h2>
 
-      {/* AUTH SECTION */}
       {!user ? (
         <div>
           <h3>Login / Sign up</h3>
@@ -122,7 +133,7 @@ export default function SupabaseSeenTest() {
             placeholder="email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
-            style={{color: "red"}}
+            style={{ color: "red" }}
           />
 
           <input
@@ -130,7 +141,7 @@ export default function SupabaseSeenTest() {
             type="password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
-            style={{color: "red"}}
+            style={{ color: "red" }}
           />
 
           <button onClick={signUp}>Sign up</button>
@@ -143,45 +154,96 @@ export default function SupabaseSeenTest() {
 
           <hr />
 
-          {/* INSERT SECTION */}
-          <h3>Add to seen_movies</h3>
-          <div>movie id</div>
+          {/* ADD ENTRY */}
+          <h3>Add Movie Entry</h3>
+
+          <div>Movie ID</div>
           <input
             placeholder="movie_id"
             value={movieId}
             onChange={(e) => setMovieId(e.target.value)}
-            style={{color: "red"}}
+            style={{ color: "red" }}
           />
+
+          <h4>Add to To‑Watch</h4>
+          <input
+            placeholder="priority"
+            value={priority}
+            onChange={(e) => setPriority(e.target.value)}
+            style={{ color: "red" }}
+          />
+          <input
+            placeholder="custom note"
+            value={custom}
+            onChange={(e) => setCustom(e.target.value)}
+            style={{ color: "red" }}
+          />
+          <button onClick={addToWatch}>Add to To‑Watch</button>
+
+          <h4>Add to Seen</h4>
           <input
             placeholder="rating (0-10)"
             value={rating}
             onChange={(e) => setRating(e.target.value)}
-            style={{color: "red"}}
+            style={{ color: "red" }}
           />
-
           <input
             placeholder="review"
             value={review}
             onChange={(e) => setReview(e.target.value)}
-            style={{color: "red"}}
+            style={{ color: "red" }}
           />
+          <button onClick={addSeen}>Add to Seen</button>
 
-          <button onClick={addSeen}>Add</button>
+          <h4>Add to Deck</h4>
+          <button onClick={addDeck}>Add to Deck</button>
         </div>
       )}
-      <h3>Your Seen Movies</h3>
 
-      {seenMovies.length === 0 ? (
-        <p>No movies yet</p>
+      <hr />
+
+      <h3>Your To‑Watch List</h3>
+      {toWatch.length === 0 ? (
+        <p>No movies</p>
       ) : (
         <ul>
-          {seenMovies.map((m) => (
+          {toWatch.map((m) => (
+            <li key={m.id}>
+              <strong>{m.movie_id}</strong>  
+              <br />
+              Priority: {m.priority ?? "N/A"}  
+              <br />
+              Note: {m.custom ?? "None"}
+            </li>
+          ))}
+        </ul>
+      )}
+
+      <h3>Your Seen Movies</h3>
+      {seen.length === 0 ? (
+        <p>No movies</p>
+      ) : (
+        <ul>
+          {seen.map((m) => (
             <li key={m.id}>
               <strong>{m.movie_id}</strong>
               <br />
               Rating: {m.rating ?? "N/A"}
               <br />
               Review: {m.review ?? "No review"}
+            </li>
+          ))}
+        </ul>
+      )}
+
+      <h3>Your Deck Movies</h3>
+      {deck.length === 0 ? (
+        <p>No movies</p>
+      ) : (
+        <ul>
+          {deck.map((m) => (
+            <li key={m.id}>
+              <strong>{m.movie_id}</strong>
             </li>
           ))}
         </ul>

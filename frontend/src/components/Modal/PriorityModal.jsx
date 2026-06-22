@@ -17,7 +17,7 @@ function PriorityModal() {
 
     function save() {
         addToToWatch(
-            selectedMovie,
+            selectedMovie.id,
             priority,
             custom
         );

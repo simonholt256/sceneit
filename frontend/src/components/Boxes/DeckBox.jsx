@@ -1,13 +1,21 @@
+import { useMovieContext } from "../../contexts/MovieContext";
 import DeckFilmCard from "../Cards/DeckFilmCard";
 
 function DeckBox({ onSelectReview }) {
+  const { deck } = useMovieContext();
+
   return (
-      <div className="deckbox__container ">
-        {[0, 1, 2, 3, 4].map((i) => (
-          <DeckFilmCard key={i} index={i} onSelectReview={onSelectReview} />
-        ))}
-      </div>
-    );
+    <div className="deckbox__container">
+      {deck.map((movie, i) => (
+        <DeckFilmCard
+          key={movie.movie_id}
+          movie={movie}
+          index={i}
+          onSelectReview={onSelectReview}
+        />
+      ))}
+    </div>
+  );
 }
 
-export default DeckBox
+export default DeckBox;

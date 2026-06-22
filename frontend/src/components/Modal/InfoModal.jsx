@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { createPortal } from "react-dom";
 import { useModalContext } from "../../contexts/ModalContext";
 import { useMovieContext } from "../../contexts/MovieContext";
-import { getMovieCredits, getRecommendedMovies } from "../../services/api";
+import { getMovieCredits, getRecommendedMovies } from "../../services/movieServices";
 import { getPoster } from "../../utils/poster";
 
 import NoPoster from "../../assets/default/noposter.png";
@@ -89,7 +89,7 @@ function InfoModal() {
       if (seen) {
         removeFromSeen(selectedMovie.id);
       } else {
-        addToSeen(selectedMovie, 0);
+        addToSeen(selectedMovie.id, 0);
       }
     }
 
@@ -97,7 +97,7 @@ function InfoModal() {
       if (toWatch) {
         removeFromToWatch(selectedMovie.id);
       } else {
-        addToToWatch(selectedMovie);
+        addToToWatch(selectedMovie.id);
       }
     }
 
