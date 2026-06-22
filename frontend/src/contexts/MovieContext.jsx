@@ -1,22 +1,28 @@
 import { createContext, useState, useEffect, useContext } from "react";
+import { supabase } from "../lib/supabase";
+import { useAuth } from "./AuthContext";
 
 const MovieContext = createContext();
 
 export const useMovieContext = () => useContext(MovieContext);
 
 export const MovieProvider = ({ children }) => {
+  const { user } = useAuth();
+  const isLoggedIn = !!user;
+  
 
-  // =========================
-  // SEEN (watch history only)
-  // =========================
+  // Seen
+
   const [seen, setSeen] = useState(() => {
     const stored = localStorage.getItem("seen");
     return stored ? JSON.parse(stored) : [];
   });
 
   useEffect(() => {
-    localStorage.setItem("seen", JSON.stringify(seen));
-  }, [seen]);
+    if (!isLoggedIn) {
+      localStorage.setItem("seen", JSON.stringify(seen));
+    }
+  }, [seen, isLoggedIn]);
 
   const addToSeen = (movie, rating, review = "") => {
     setSeen(prev => {
@@ -57,17 +63,19 @@ export const MovieProvider = ({ children }) => {
         return seen.find(movie => movie.id === movieId);
     };
 
-    // =========================
-    // TO WATCH (planning system)
-    // =========================
+
+    // to watch
+
     const [toWatch, setToWatch] = useState(() => {
         const stored = localStorage.getItem("to-watch");
         return stored ? JSON.parse(stored) : [];
     });
 
     useEffect(() => {
+      if (!isLoggedIn) {
         localStorage.setItem("to-watch", JSON.stringify(toWatch));
-    }, [toWatch]);
+      }
+    }, [toWatch, isLoggedIn]);
 
     const addToToWatch = (movie, priority = "", custom = "") => {
         setToWatch(prev => {
@@ -118,8 +126,10 @@ export const MovieProvider = ({ children }) => {
     });
 
     useEffect(() => {
-      localStorage.setItem("deck", JSON.stringify(deck));
-    }, [deck]);
+      if (!isLoggedIn) {
+        localStorage.setItem("deck", JSON.stringify(deck));
+      }
+    }, [deck, isLoggedIn]);
 
     const addToDeck = (movieId) => {
       setDeck(prev => {
@@ -147,9 +157,8 @@ export const MovieProvider = ({ children }) => {
     };
 
 
-    // =========================
     // CONTEXT VALUE
-    // =========================
+    
     const value = {
         // Seen
         seen,
