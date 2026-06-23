@@ -12,16 +12,25 @@ export const MovieProvider = ({ children }) => {
   const [toWatch, setToWatch] = useState([]);
   const [deck, setDeck] = useState([]);
 
-  // TMDB cache to avoid refetching the same movie
   const tmdbCache = useRef({});
+
+  // =========================
+  // ⭐ LOCAL STORAGE HELPERS
+  // =========================
+  const loadLocal = (key) => {
+    const data = localStorage.getItem(key);
+    return data ? JSON.parse(data) : [];
+  };
+
+  const saveLocal = (key, value) => {
+    localStorage.setItem(key, JSON.stringify(value));
+  };
 
   // =========================
   // TMDB FETCHER (with cache)
   // =========================
   const fetchTMDB = async (movieId) => {
-    if (tmdbCache.current[movieId]) {
-      return tmdbCache.current[movieId];
-    }
+    if (tmdbCache.current[movieId]) return tmdbCache.current[movieId];
 
     const res = await fetch(
       `https://api.themoviedb.org/3/movie/${movieId}?api_key=${import.meta.env.VITE_TMDB_KEY}`
@@ -38,23 +47,18 @@ export const MovieProvider = ({ children }) => {
   const enrichEntries = async (entries) => {
     const uniqueIds = [...new Set(entries.map((e) => e.movie_id))];
 
-    // Fetch TMDB data in parallel
     await Promise.all(
       uniqueIds.map(async (id) => {
-        if (!tmdbCache.current[id]) {
-          await fetchTMDB(id);
-        }
+        if (!tmdbCache.current[id]) await fetchTMDB(id);
       })
     );
 
-    // 🔧 Build lookup of seen entries
     const seenMap = new Map(
       entries
         .filter((e) => e.category === "seen")
         .map((e) => [e.movie_id, e])
     );
 
-    // 🔧 Merge DB + TMDB + seen rating/review
     return entries.map((entry) => {
       const tmdb = tmdbCache.current[entry.movie_id] || {};
       const seenData = seenMap.get(entry.movie_id);
@@ -62,11 +66,8 @@ export const MovieProvider = ({ children }) => {
       return {
         ...entry,
         ...tmdb,
-
-        // Prefer seen rating/review → fallback to entry → fallback to null
         userRating: seenData?.rating ?? entry.rating ?? null,
         review: seenData?.review ?? entry.review ?? null,
-
         listType: entry.category,
         genre_ids: tmdb.genres?.map((g) => g.id) || [],
       };
@@ -77,8 +78,27 @@ export const MovieProvider = ({ children }) => {
   // LOAD ALL MOVIES
   // =========================
   const loadEntries = async () => {
-    if (!user) return;
+    // ⭐ LOCAL MODE
+    if (!user) {
+      const localSeen = loadLocal("seen");
+      const localToWatch = loadLocal("toWatch");
+      const localDeck = loadLocal("deck");
 
+      const combined = [
+        ...localSeen.map((m) => ({ ...m, category: "seen" })),
+        ...localToWatch.map((m) => ({ ...m, category: "to_watch" })),
+        ...localDeck.map((m) => ({ ...m, category: "deck" })),
+      ];
+
+      const enriched = await enrichEntries(combined);
+
+      setSeen(enriched.filter((m) => m.category === "seen"));
+      setToWatch(enriched.filter((m) => m.category === "to_watch"));
+      setDeck(enriched.filter((m) => m.category === "deck"));
+      return;
+    }
+
+    // ⭐ SUPABASE MODE
     const { data: rows, error } = await supabase
       .from("movie_entries")
       .select("*")
@@ -91,26 +111,45 @@ export const MovieProvider = ({ children }) => {
 
     const enriched = await enrichEntries(rows);
 
-    console.log("🔎 ENRICHED DECK:", enriched.filter(m => m.category === "deck"));
-
     setSeen(enriched.filter((m) => m.category === "seen"));
     setToWatch(enriched.filter((m) => m.category === "to_watch"));
     setDeck(enriched.filter((m) => m.category === "deck"));
   };
 
   useEffect(() => {
-    if (user) loadEntries();
-    else {
-      setSeen([]);
-      setToWatch([]);
-      setDeck([]);
-    }
+    loadEntries();
   }, [user]);
 
   // =========================
   // CORE UPSERT / DELETE
   // =========================
   const upsertEntry = async (category, movieId, fields = {}) => {
+    // ⭐ LOCAL MODE
+    if (!user) {
+      const key =
+        category === "seen"
+          ? "seen"
+          : category === "to_watch"
+          ? "toWatch"
+          : "deck";
+
+      const list = loadLocal(key);
+      const index = list.findIndex((m) => m.movie_id === movieId);
+
+      const entry = { movie_id: movieId, category, ...fields };
+
+      if (index >= 0) {
+        list[index] = { ...list[index], ...entry };
+      } else {
+        list.push(entry);
+      }
+
+      saveLocal(key, list);
+      loadEntries();
+      return;
+    }
+
+    // ⭐ SUPABASE MODE
     const { error } = await supabase
       .from("movie_entries")
       .upsert(
@@ -120,9 +159,7 @@ export const MovieProvider = ({ children }) => {
           category,
           ...fields,
         },
-        {
-          onConflict: "user_id, movie_id, category",
-        }
+        { onConflict: "user_id, movie_id, category" }
       );
 
     if (error) console.error(error);
@@ -130,6 +167,22 @@ export const MovieProvider = ({ children }) => {
   };
 
   const deleteEntry = async (category, movieId) => {
+    // ⭐ LOCAL MODE
+    if (!user) {
+      const key =
+        category === "seen"
+          ? "seen"
+          : category === "to_watch"
+          ? "toWatch"
+          : "deck";
+
+      const list = loadLocal(key).filter((m) => m.movie_id !== movieId);
+      saveLocal(key, list);
+      loadEntries();
+      return;
+    }
+
+    // ⭐ SUPABASE MODE
     const { error } = await supabase
       .from("movie_entries")
       .delete()
