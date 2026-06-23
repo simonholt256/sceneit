@@ -8,7 +8,14 @@ import { useMovieContext } from "../contexts/MovieContext";
 import FilmCard from "../components/Cards/FilmCard";
 import WatchNames from "../components/Lists/WatchNames";
 
-
+const reversePriorityMap = {
+  0: "none",
+  1: "urgent",
+  2: "soon",
+  3: "keen",
+  4: "someday",
+  5: "never"
+};
 
 function ToWatch() {
 
@@ -68,13 +75,15 @@ function ToWatch() {
   const groupedByPriority = {
     urgent: [],
     soon: [],
+    keen: [],
     someday: [],
+    never: [],
     none: []
   };
 
   toWatch.forEach(movie => {
-    const p = movie.priority || "none";
-    groupedByPriority[p].push(movie);
+    const key = reversePriorityMap[movie.priority] || "none";
+    groupedByPriority[key].push(movie);
   });
 
   // =========================

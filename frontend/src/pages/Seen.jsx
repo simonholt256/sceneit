@@ -82,7 +82,6 @@ function Seen() {
     return <NoFilms state="Seen" />;
   }
 
-  console.log(" 🔥🔥🔥 SEEN RAW:", seen);
 
   return (
     <div>

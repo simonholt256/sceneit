@@ -3,6 +3,24 @@ import { useState } from "react";
 import { useModalContext } from "../../contexts/ModalContext";
 import { useMovieContext } from "../../contexts/MovieContext";
 
+const priorityMap = {
+    "": 0,
+    urgent: 1,
+    soon: 2,
+    keen: 3,
+    someday: 4,
+    never: 5
+};
+
+const reversePriorityMap = {
+    0: "",
+    1: "urgent",
+    2: "soon",
+    3: "keen",
+    4: "someday",
+    5: "never"
+};
+
 function PriorityModal() {
 
     const { selectedMovie, isPriorityOpen, closePriorityModal } = useModalContext();
@@ -10,7 +28,9 @@ function PriorityModal() {
 
     const existing = selectedMovie ? getToWatchMovie(selectedMovie.id) : null;
 
-    const [priority, setPriority] = useState(existing?.priority || "");
+    const [priority, setPriority] = useState(
+        existing ? reversePriorityMap[existing.priority] : ""
+    );
     const [custom, setCustom] = useState(existing?.custom || "");
 
     if (!isPriorityOpen || !selectedMovie) return null;
@@ -18,7 +38,7 @@ function PriorityModal() {
     function save() {
         addToToWatch(
             selectedMovie.id,
-            priority,
+            priorityMap[priority],
             custom
         );
 
@@ -36,7 +56,9 @@ function PriorityModal() {
                     <option value="">None</option>
                     <option value="urgent">Urgent</option>
                     <option value="soon">Must see soon</option>
+                    <option value="keen">fairly keen</option>
                     <option value="someday">Maybe someday</option>
+                    <option value="never">Maybe never</option>
                 </select>
 
                 <label>Custom Tag</label>

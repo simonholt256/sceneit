@@ -111,12 +111,19 @@ export const MovieProvider = ({ children }) => {
   // CORE UPSERT / DELETE
   // =========================
   const upsertEntry = async (category, movieId, fields = {}) => {
-    const { error } = await supabase.from("movie_entries").upsert({
-      user_id: user.id,
-      movie_id: movieId,
-      category,
-      ...fields,
-    });
+    const { error } = await supabase
+      .from("movie_entries")
+      .upsert(
+        {
+          user_id: user.id,
+          movie_id: movieId,
+          category,
+          ...fields,
+        },
+        {
+          onConflict: "user_id, movie_id, category",
+        }
+      );
 
     if (error) console.error(error);
     await loadEntries();
