@@ -322,6 +322,8 @@ button:hover {
   /* transform: rotate(-90deg); */
 }
 
+/* rating modal*/
+
 .rating-modal {
   padding: 8px;
   border: solid 1px var(--outer-border);
@@ -335,8 +337,35 @@ button:hover {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  height: 140px;
+  height: 180px;
 }
+
+/* stars */
+
+.star-rating {
+  display: flex;
+  justify-content: center;
+  gap: 4px;
+  font-size: 28px;
+  cursor: pointer;
+}
+
+.star {
+  color: #999;
+  transition: color 0.2s;
+  font-size: 3rem;
+}
+
+.star.filled {
+  color: rgb(255, 208, 0);
+}
+
+.star.hover {
+  color: rgba(255, 217, 0, 0.747);
+}
+
+
+
 
 .rating-bar-section {
   background-color: rgba(167, 161, 79, 0.479);

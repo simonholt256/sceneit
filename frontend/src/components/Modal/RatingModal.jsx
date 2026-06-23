@@ -1,7 +1,40 @@
 import { createPortal } from "react-dom";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useModalContext } from "../../contexts/ModalContext";
 import { useMovieContext } from "../../contexts/MovieContext";
+
+function StarRating({ rating, setRating }) {
+  const [hover, setHover] = useState(0);
+
+  return (
+    <div className="star-rating">
+      {[...Array(10)].map((_, i) => {
+        const value = i + 1;
+
+        const isHover = hover !== 0 && value <= hover;
+        const isFilled = hover === 0 && value <= rating;
+
+        return (
+          <span
+            key={value}
+            className={
+              isHover
+                ? "star hover"
+                : isFilled
+                ? "star filled"
+                : "star"
+            }
+            onClick={() => setRating(value)}
+            onMouseEnter={() => setHover(value)}
+            onMouseLeave={() => setHover(0)}
+          >
+            ★
+          </span>
+        );
+      })}
+    </div>
+  );
+}
 
 function RatingModal() {
 
@@ -45,22 +78,14 @@ function RatingModal() {
           <h2>Rate {selectedMovie.title}</h2>
 
           <div className="rating-modal__input-container">
-            <select
-              value={rating}
-              onChange={(e) => setRating(Number(e.target.value))}
+            <StarRating rating={rating} setRating={setRating} />
+
+            <button
+              className="clear-rating"
+              onClick={() => setRating(0)}
             >
-              <option value="0">No rating</option>
-              <option value="1">1</option>
-              <option value="2">2</option>
-              <option value="3">3</option>
-              <option value="4">4</option>
-              <option value="5">5</option>
-              <option value="6">6</option>
-              <option value="7">7</option>
-              <option value="8">8</option>
-              <option value="9">9</option>
-              <option value="10">10</option>
-            </select>
+              Clear Rating
+            </button>
 
             <textarea
               value={review}
