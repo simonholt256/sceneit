@@ -1,7 +1,8 @@
 import { useState, useEffect } from "react";
 import { supabase } from "../lib/supabase";
+import { Link } from "react-router-dom"
 
-export default function SupabaseMovieTest() {
+function Entry() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [user, setUser] = useState(null);
@@ -123,7 +124,7 @@ export default function SupabaseMovieTest() {
 
   return (
     <div style={{ padding: "20px" }}>
-      <h2>Supabase Movie Test</h2>
+      <h2>User Entry</h2>
 
       {!user ? (
         <div>
@@ -149,12 +150,13 @@ export default function SupabaseMovieTest() {
         </div>
       ) : (
         <div>
-          <p>Logged in as: {user.email}</p>
+          <p>You are logged in as: {user.email}</p>
           <button onClick={signOut}>Logout</button>
+          <div>Go to <Link className="" to="/">Dash</Link></div>
+          
 
-          <hr />
+          {/* <hr />
 
-          {/* ADD ENTRY */}
           <h3>Add Movie Entry</h3>
 
           <div>Movie ID</div>
@@ -196,11 +198,11 @@ export default function SupabaseMovieTest() {
           <button onClick={addSeen}>Add to Seen</button>
 
           <h4>Add to Deck</h4>
-          <button onClick={addDeck}>Add to Deck</button>
+          <button onClick={addDeck}>Add to Deck</button> */}
         </div>
       )}
 
-      <hr />
+      {/* <hr />
 
       <h3>Your To‑Watch List</h3>
       {toWatch.length === 0 ? (
@@ -247,7 +249,9 @@ export default function SupabaseMovieTest() {
             </li>
           ))}
         </ul>
-      )}
+      )} */}
     </div>
   );
 }
+
+export default Entry

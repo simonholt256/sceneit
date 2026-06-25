@@ -216,6 +216,25 @@ button:hover {
 /* ------- Header ------- */
 /*----------------------------*/
 
+.userbar {
+  display: flex;
+  background-color: #333333;
+  justify-content: space-between;
+}
+
+.userbar__text {
+  padding: 8px 16px;
+  margin: 0px 16px;
+}
+
+.userbar__text.link {
+  cursor: pointer;
+}
+
+.userbar__text.link:hover {
+  color: rgb(255, 233, 133);
+}
+
 
 @media (max-width: 800px) {
   .header {

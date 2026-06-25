@@ -9,7 +9,7 @@ import ToWatch from './pages/ToWatch.jsx';
 import Deck from "./pages/Deck.jsx";
 import MobileNav from "./components/Header/MobileNav.jsx";
 import FullLists from "./pages/FullLists.jsx";
-import SupabaseSeenTest from "./demo/SupabaseSeenTest.jsx";
+import SupabaseSeenTest from "./pages/Entry.jsx";
 
 import { supabase } from "./lib/supabase.js";
 
@@ -50,7 +50,7 @@ function AppContent() {
           <Route path="/Search" element={<Search />} />
           <Route path="/Deck" element={<Deck />} />
           <Route path="/Fulllists" element={<FullLists/>}/>
-          <Route path="/test" element={<SupabaseSeenTest/>}/>
+          <Route path="/Entry" element={<SupabaseSeenTest/>}/>
         </Routes>
 
         {isInfoOpen && <InfoModal />}
