@@ -1111,6 +1111,11 @@ select, textarea {
 
 }
 
+.info-modal__mobile-button-box {
+    display: none;
+    
+  }
+
 @media (max-width: 800px) {
     
 
